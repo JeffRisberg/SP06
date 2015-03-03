@@ -1,6 +1,6 @@
 package com.incra.models.propertyEditor;
 
-import com.incra.models.Rubric;
+import com.incra.models.Charity;
 import com.incra.services.RubricService;
 
 import java.beans.PropertyEditorSupport;
@@ -21,8 +21,8 @@ public class RubricPropertyEditor extends PropertyEditorSupport {
     public String getAsText() {
         Object value = getValue();
 
-        if (value instanceof Rubric) {
-            return String.valueOf(((Rubric) value).getId());
+        if (value instanceof Charity) {
+            return String.valueOf(((Charity) value).getId());
         } else {
             return super.getAsText();
         }

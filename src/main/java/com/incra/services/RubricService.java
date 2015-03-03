@@ -1,8 +1,8 @@
 package com.incra.services;
 
-import com.incra.models.Box;
-import com.incra.models.Rubric;
-import com.incra.models.RubricBox;
+import com.incra.models.Vendor;
+import com.incra.models.Charity;
+import com.incra.models.Donation;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,22 +29,22 @@ public class RubricService {
     @PersistenceContext
     private EntityManager em;
 
-    public List<Rubric> findEntityList() {
+    public List<Charity> findEntityList() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Rubric> criteria = cb.createQuery(Rubric.class);
-        criteria.from(Rubric.class);
+        CriteriaQuery<Charity> criteria = cb.createQuery(Charity.class);
+        criteria.from(Charity.class);
 
         return em.createQuery(criteria).getResultList();
     }
 
-    public Rubric findEntityById(int id) {
-        return em.find(Rubric.class, id);
+    public Charity findEntityById(int id) {
+        return em.find(Charity.class, id);
     }
 
-    public Rubric findEntityByName(String name) {
+    public Charity findEntityByName(String name) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Rubric> criteria = builder.createQuery(Rubric.class);
-        Root<Rubric> root = criteria.from(Rubric.class);
+        CriteriaQuery<Charity> criteria = builder.createQuery(Charity.class);
+        Root<Charity> root = criteria.from(Charity.class);
 
         Path<String> rootName = root.get("name");
         criteria.where(builder.equal(rootName, name));
@@ -56,7 +56,7 @@ public class RubricService {
         }
     }
 
-    public void save(Rubric rubric) {
+    public void save(Charity rubric) {
         if (rubric.getId() == null || rubric.getId() == 0) {
             em.persist(rubric);
         } else {
@@ -64,29 +64,29 @@ public class RubricService {
         }
     }
 
-    public void delete(Rubric rubric) {
+    public void delete(Charity rubric) {
         this.delete(rubric.getId());
     }
 
     public void delete(int rubricId) {
-        Rubric existingRubric = this.findEntityById(rubricId);
+        Charity existingRubric = this.findEntityById(rubricId);
         if (null != existingRubric) {
             em.remove(existingRubric);
         }
     }
 
-    public List<Rubric> findEntityListByBox(Box box) {
+    public List<Charity> findEntityListByBox(Vendor box) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<RubricBox> criteria = builder.createQuery(RubricBox.class);
-        Root<RubricBox> root = criteria.from(RubricBox.class);
+        CriteriaQuery<Donation> criteria = builder.createQuery(Donation.class);
+        Root<Donation> root = criteria.from(Donation.class);
 
-        Path<Box> rootBox = root.get("box");
+        Path<Vendor> rootBox = root.get("box");
         criteria.where(builder.equal(rootBox, box));
 
-        List<RubricBox> rbList = em.createQuery(criteria).getResultList();
-        List<Rubric> result = new ArrayList<Rubric>();
+        List<Donation> rbList = em.createQuery(criteria).getResultList();
+        List<Charity> result = new ArrayList<Charity>();
 
-        for (RubricBox rb : rbList) {
+        for (Donation rb : rbList) {
             result.add(rb.getRubric());
         }
 

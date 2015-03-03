@@ -12,38 +12,38 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "rubric_box")
-public class RubricBox extends AbstractDatabaseItem {
+public class Donation extends AbstractDatabaseItem {
 
     @ManyToOne
     @JoinColumn(name = "rubric_id", nullable = false)
-    protected Rubric rubric;
+    protected Charity rubric;
 
     @ManyToOne
     @JoinColumn(name = "box_id", nullable = false)
-    protected Box box;
+    protected Vendor box;
 
-    public Box getBox() {
+    public Vendor getBox() {
         return box;
     }
 
-    public void setBox(Box box) {
+    public void setBox(Vendor box) {
         this.box = box;
     }
 
-    public Rubric getRubric() {
+    public Charity getRubric() {
         return rubric;
     }
 
-    public void setRubric(Rubric rubric) {
+    public void setRubric(Charity rubric) {
         this.rubric = rubric;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof RubricBox)) return false;
+        if (!(o instanceof Donation)) return false;
 
-        RubricBox rubricBox = (RubricBox) o;
+        Donation rubricBox = (Donation) o;
 
         if (!box.equals(rubricBox.box)) return false;
         if (!rubric.equals(rubricBox.rubric)) return false;

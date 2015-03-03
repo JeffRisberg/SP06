@@ -1,7 +1,7 @@
 package com.incra.controllers;
 
-import com.incra.models.Box;
-import com.incra.models.Rubric;
+import com.incra.models.Vendor;
+import com.incra.models.Charity;
 import com.incra.models.Site;
 import com.incra.services.BoxService;
 import com.incra.services.RubricService;
@@ -49,21 +49,21 @@ public class PageController {
     public ModelAndView show(@PathVariable int id, Model model, HttpSession session) {
 
         Site site = siteService.findEntityById(id);
-        List<Box> boxes = boxService.findEntityListBySite(site);
+        List<Vendor> boxes = boxService.findEntityListBySite(site);
 
-        Map<Integer, List<Box>> rowMap = new HashMap<Integer, List<Box>>();
+        Map<Integer, List<Vendor>> rowMap = new HashMap<Integer, List<Vendor>>();
         int maxRowIndex = 0;
 
-        for (Box box : boxes) {
+        for (Vendor box : boxes) {
             Integer rowIndex = box.getRowIndex();
             Integer colIndex = box.getColIndex();
 
-            List<Rubric> rubrics = rubricService.findEntityListByBox(box);
+            List<Charity> rubrics = rubricService.findEntityListByBox(box);
             box.getRubrics().addAll(rubrics);
 
-            List<Box> row = rowMap.get(rowIndex);
+            List<Vendor> row = rowMap.get(rowIndex);
             if (row == null) {
-                row = new ArrayList<Box>();
+                row = new ArrayList<Vendor>();
                 rowMap.put(rowIndex, row);
                 maxRowIndex = Math.max(maxRowIndex, rowIndex);
             }
@@ -72,7 +72,7 @@ public class PageController {
             row.set(colIndex, box);
         }
 
-        List<List<Box>> rowList = new ArrayList<List<Box>>();
+        List<List<Vendor>> rowList = new ArrayList<List<Vendor>>();
         for (int i = 0; i <= maxRowIndex; i++) {
             if (rowMap.get(i) != null) {
                 rowList.add(rowMap.get(i));

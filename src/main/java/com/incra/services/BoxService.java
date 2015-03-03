@@ -1,6 +1,6 @@
 package com.incra.services;
 
-import com.incra.models.Box;
+import com.incra.models.Vendor;
 import com.incra.models.Site;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,22 +27,22 @@ public class BoxService {
     @PersistenceContext
     private EntityManager em;
 
-    public List<Box> findEntityList() {
+    public List<Vendor> findEntityList() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Box> criteria = cb.createQuery(Box.class);
-        criteria.from(Box.class);
+        CriteriaQuery<Vendor> criteria = cb.createQuery(Vendor.class);
+        criteria.from(Vendor.class);
 
         return em.createQuery(criteria).getResultList();
     }
 
-    public Box findEntityById(int id) {
-        return em.find(Box.class, id);
+    public Vendor findEntityById(int id) {
+        return em.find(Vendor.class, id);
     }
 
-    public Box findEntityByTitle(String title) {
+    public Vendor findEntityByTitle(String title) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Box> criteria = builder.createQuery(Box.class);
-        Root<Box> root = criteria.from(Box.class);
+        CriteriaQuery<Vendor> criteria = builder.createQuery(Vendor.class);
+        Root<Vendor> root = criteria.from(Vendor.class);
 
         Path<String> rootTitle = root.get("title");
         criteria.where(builder.equal(rootTitle, title));
@@ -54,7 +54,7 @@ public class BoxService {
         }
     }
 
-    public void save(Box box) {
+    public void save(Vendor box) {
         if (box.getId() == null || box.getId() == 0) {
             em.persist(box);
         } else {
@@ -62,21 +62,21 @@ public class BoxService {
         }
     }
 
-    public void delete(Box box) {
+    public void delete(Vendor box) {
         this.delete(box.getId());
     }
 
     public void delete(int boxId) {
-        Box existingBox = this.findEntityById(boxId);
+        Vendor existingBox = this.findEntityById(boxId);
         if (null != existingBox) {
             em.remove(existingBox);
         }
     }
 
-    public List<Box> findEntityListBySite(Site site) {
+    public List<Vendor> findEntityListBySite(Site site) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Box> criteria = builder.createQuery(Box.class);
-        Root<Box> root = criteria.from(Box.class);
+        CriteriaQuery<Vendor> criteria = builder.createQuery(Vendor.class);
+        Root<Vendor> root = criteria.from(Vendor.class);
 
         Path<Site> rootSite = root.get("site");
         criteria.where(builder.equal(rootSite, site));

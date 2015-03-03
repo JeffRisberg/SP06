@@ -1,8 +1,6 @@
 package com.incra.controllers;
 
-import com.incra.models.Rubric;
-import com.incra.models.Site;
-import com.incra.models.propertyEditor.SitePropertyEditor;
+import com.incra.models.Charity;
 import com.incra.services.PageFrameworkService;
 import com.incra.services.RubricService;
 import org.slf4j.Logger;
@@ -54,7 +52,7 @@ public class RubricController extends AbstractAdminController {
     @RequestMapping(value = "/rubric/list")
     public ModelAndView list(Object criteria) {
 
-        List<Rubric> rubricList = rubricService.findEntityList();
+        List<Charity> rubricList = rubricService.findEntityList();
 
         ModelAndView modelAndView = new ModelAndView("rubric/list");
         modelAndView.addObject("rubricList", rubricList);
@@ -64,7 +62,7 @@ public class RubricController extends AbstractAdminController {
     @RequestMapping(value = "/rubric/show/{id}", method = RequestMethod.GET)
     public String show(@PathVariable int id, Model model, HttpSession session) {
 
-        Rubric rubric = rubricService.findEntityById(id);
+        Charity rubric = rubricService.findEntityById(id);
         if (rubric != null) {
             model.addAttribute(rubric);
             return "rubric/show";
@@ -78,7 +76,7 @@ public class RubricController extends AbstractAdminController {
     @RequestMapping(value = "/rubric/create", method = RequestMethod.GET)
     public ModelAndView create() {
 
-        Rubric rubric = new Rubric();
+        Charity rubric = new Charity();
 
         ModelAndView modelAndView = new ModelAndView("rubric/create");
         modelAndView.addObject("command", rubric);
@@ -87,7 +85,7 @@ public class RubricController extends AbstractAdminController {
 
     @RequestMapping(value = "/rubric/edit/{id}", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable int id, String finalURL) {
-        Rubric rubric = rubricService.findEntityById(id);
+        Charity rubric = rubricService.findEntityById(id);
 
         ModelAndView modelAndView = new ModelAndView("rubric/edit");
         modelAndView.addObject("command", rubric);
@@ -97,7 +95,7 @@ public class RubricController extends AbstractAdminController {
     }
 
     @RequestMapping(value = "/rubric/save", method = RequestMethod.POST)
-    public String save(final @ModelAttribute("command") @Valid Rubric rubric, String finalURL,
+    public String save(final @ModelAttribute("command") @Valid Charity rubric, String finalURL,
                        BindingResult result, Model model, HttpSession session) {
 
         if (result.hasErrors()) {
@@ -124,7 +122,7 @@ public class RubricController extends AbstractAdminController {
     @RequestMapping(value = "/rubric/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable int id, HttpSession session) {
 
-        Rubric rubric = rubricService.findEntityById(id);
+        Charity rubric = rubricService.findEntityById(id);
         if (rubric != null) {
             try {
                 rubricService.delete(rubric);

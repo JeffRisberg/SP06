@@ -1,6 +1,6 @@
 package com.incra.controllers;
 
-import com.incra.models.Box;
+import com.incra.models.Vendor;
 import com.incra.models.Site;
 import com.incra.models.propertyEditor.SitePropertyEditor;
 import com.incra.services.BoxService;
@@ -59,7 +59,7 @@ public class BoxController extends AbstractAdminController {
     @RequestMapping(value = "/box/list")
     public ModelAndView list(Object criteria) {
 
-        List<Box> boxList = boxService.findEntityList();
+        List<Vendor> boxList = boxService.findEntityList();
 
         ModelAndView modelAndView = new ModelAndView("box/list");
         modelAndView.addObject("boxList", boxList);
@@ -69,7 +69,7 @@ public class BoxController extends AbstractAdminController {
     @RequestMapping(value = "/box/show/{id}", method = RequestMethod.GET)
     public String show(@PathVariable int id, Model model, HttpSession session) {
 
-        Box box = boxService.findEntityById(id);
+        Vendor box = boxService.findEntityById(id);
         if (box != null) {
             model.addAttribute(box);
             return "box/show";
@@ -83,7 +83,7 @@ public class BoxController extends AbstractAdminController {
     @RequestMapping(value = "/box/create", method = RequestMethod.GET)
     public ModelAndView create() {
 
-        Box box = new Box();
+        Vendor box = new Vendor();
         List<Site> siteList = siteService.findEntityList();
 
         ModelAndView modelAndView = new ModelAndView("box/create");
@@ -95,7 +95,7 @@ public class BoxController extends AbstractAdminController {
     @RequestMapping(value = "/box/edit/{id}", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable int id) {
         
-        Box box = boxService.findEntityById(id);
+        Vendor box = boxService.findEntityById(id);
         List<Site> siteList = siteService.findEntityList();
 
         ModelAndView modelAndView = new ModelAndView("box/edit");
@@ -106,7 +106,7 @@ public class BoxController extends AbstractAdminController {
     }
 
     @RequestMapping(value = "/box/save", method = RequestMethod.POST)
-    public String save(final @ModelAttribute("command") @Valid Box box,
+    public String save(final @ModelAttribute("command") @Valid Vendor box,
                        BindingResult result, Model model, HttpSession session) {
 
         if (result.hasErrors()) {
@@ -129,7 +129,7 @@ public class BoxController extends AbstractAdminController {
     @RequestMapping(value = "/box/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable int id, HttpSession session) {
 
-        Box box = boxService.findEntityById(id);
+        Vendor box = boxService.findEntityById(id);
         if (box != null) {
             try {
                 boxService.delete(box);

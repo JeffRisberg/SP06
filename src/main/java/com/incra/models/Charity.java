@@ -8,11 +8,11 @@ import javax.persistence.*;
  * Piece of a page
  *
  * @author Jeff Risberg
- * @since February 2014
+ * @since July 2014
  */
 @Entity
-@Table(name = "rubric")
-public class Rubric extends AbstractDatedDatabaseItem {
+@Table(name = "charities")
+public class Charity extends AbstractDatedDatabaseItem {
 
     @Basic
     private String title;
@@ -26,7 +26,7 @@ public class Rubric extends AbstractDatedDatabaseItem {
     private Integer seqNum;
 
     @ManyToOne
-    private Rubric parent;
+    private Charity parent;
 
     public String getTitle() {
         return title;
@@ -52,20 +52,20 @@ public class Rubric extends AbstractDatedDatabaseItem {
         this.seqNum = seqNum;
     }
 
-    public Rubric getParent() {
+    public Charity getParent() {
         return parent;
     }
 
-    public void setParent(Rubric parent) {
+    public void setParent(Charity parent) {
         this.parent = parent;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Rubric)) return false;
+        if (!(o instanceof Charity)) return false;
 
-        Rubric rubric = (Rubric) o;
+        Charity rubric = (Charity) o;
 
         if (!title.equals(rubric.title)) return false;
 

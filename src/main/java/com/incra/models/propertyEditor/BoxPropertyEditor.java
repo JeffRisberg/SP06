@@ -1,6 +1,6 @@
 package com.incra.models.propertyEditor;
 
-import com.incra.models.Box;
+import com.incra.models.Vendor;
 import com.incra.services.BoxService;
 
 import java.beans.PropertyEditorSupport;
@@ -21,8 +21,8 @@ public class BoxPropertyEditor extends PropertyEditorSupport {
     public String getAsText() {
         Object value = getValue();
 
-        if (value instanceof Box) {
-            return String.valueOf(((Box) value).getId());
+        if (value instanceof Vendor) {
+            return String.valueOf(((Vendor) value).getId());
         } else {
             return super.getAsText();
         }
