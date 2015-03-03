@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+    <definition name="login" template="/WEB-INF/views/login/login.jsp">
+    </definition>
+
+    <definition name="exceptionDetails" template="/WEB-INF/views/errors/exceptionDetails.jsp">
+    </definition>
+
+    <definition name="standardLayout" template="/WEB-INF/layouts/standard.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/WEB-INF/views/header.jsp"/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/views/footer.jsp"/>
+    </definition>
+
+    <definition name="uncaughtException" extends="standardLayout">
+        <put-attribute name="body" value="/WEB-INF/views/errors/uncaughtException.jsp"/>
+    </definition>
+
+    <definition name="resourceNotFoundException" extends="standardLayout">
+        <put-attribute name="body" value="/WEB-INF/views/errors/resourceNotFoundException.jsp"/>
+    </definition>
+
+    <definition name="accessDeniedException" extends="standardLayout">
+        <put-attribute name="body" value="/WEB-INF/views/errors/accessDeniedException.jsp"/>
+    </definition>
+
+    <definition name="home/*" extends="standardLayout">
+        <put-attribute name="title" value="Home"/>
+        <put-attribute name="body" value="/WEB-INF/views/home/{1}.jsp"/>
+    </definition>
+
+    <definition name="page/*" extends="standardLayout">
+        <put-attribute name="title" value="Custom Page"/>
+        <put-attribute name="body" value="/WEB-INF/views/page/{1}.jsp"/>
+    </definition>
+
+    <definition name="adminHome/*" extends="standardLayout">
+        <put-attribute name="title" value="Admin Home"/>
+        <put-attribute name="body" value="/WEB-INF/views/adminHome/{1}.jsp"/>
+    </definition>
+
+    <definition name="user/*" extends="standardLayout">
+        <put-attribute name="title" value="Users"/>
+        <put-attribute name="body" value="/WEB-INF/views/user/{1}.jsp"/>
+    </definition>
+
+    <definition name="site/*" extends="standardLayout">
+        <put-attribute name="title" value="Sites"/>
+        <put-attribute name="body" value="/WEB-INF/views/site/{1}.jsp"/>
+    </definition>
+
+    <definition name="box/*" extends="standardLayout">
+        <put-attribute name="title" value="Boxes"/>
+        <put-attribute name="body" value="/WEB-INF/views/box/{1}.jsp"/>
+    </definition>
+
+    <definition name="rubric/*" extends="standardLayout">
+        <put-attribute name="title" value="Rubric"/>
+        <put-attribute name="body" value="/WEB-INF/views/rubric/{1}.jsp"/>
+    </definition>
+
+</tiles-definitions>
