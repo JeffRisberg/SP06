@@ -2,7 +2,7 @@ package com.incra.controllers;
 
 import com.incra.models.Charity;
 import com.incra.services.PageFrameworkService;
-import com.incra.services.RubricService;
+import com.incra.services.CharityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +27,15 @@ import java.util.List;
  * @since 03/12/14
  */
 @Controller
-public class RubricController extends AbstractAdminController {
-    protected static Logger logger = LoggerFactory.getLogger(RubricController.class);
+public class CharityController extends AbstractAdminController {
+    protected static Logger logger = LoggerFactory.getLogger(CharityController.class);
 
     @Autowired
-    private RubricService rubricService;
+    private CharityService rubricService;
     @Autowired
     private PageFrameworkService pageFrameworkService;
 
-    public RubricController() {
+    public CharityController() {
     }
 
     @InitBinder

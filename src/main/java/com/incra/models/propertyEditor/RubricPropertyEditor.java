@@ -1,14 +1,14 @@
 package com.incra.models.propertyEditor;
 
 import com.incra.models.Charity;
-import com.incra.services.RubricService;
+import com.incra.services.CharityService;
 
 import java.beans.PropertyEditorSupport;
 
 public class RubricPropertyEditor extends PropertyEditorSupport {
-    private final RubricService rubricService;
+    private final CharityService rubricService;
 
-    public RubricPropertyEditor(RubricService rubricService) {
+    public RubricPropertyEditor(CharityService rubricService) {
         this.rubricService = rubricService;
     }
 

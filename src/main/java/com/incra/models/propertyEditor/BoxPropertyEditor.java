@@ -1,14 +1,14 @@
 package com.incra.models.propertyEditor;
 
 import com.incra.models.Vendor;
-import com.incra.services.BoxService;
+import com.incra.services.DonationService;
 
 import java.beans.PropertyEditorSupport;
 
 public class BoxPropertyEditor extends PropertyEditorSupport {
-    private final BoxService boxService;
+    private final DonationService boxService;
 
-    public BoxPropertyEditor(BoxService boxService) {
+    public BoxPropertyEditor(DonationService boxService) {
         this.boxService = boxService;
     }
 

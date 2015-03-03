@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Transactional
 @Repository
-public class RubricService {
+public class CharityService {
 
     @PersistenceContext
     private EntityManager em;

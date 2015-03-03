@@ -10,7 +10,7 @@ import java.util.List;
  * Vendor
  *
  * @author Jeff Risberg
- * @since February 2014
+ * @since August 2014
  */
 @Entity
 @Table(name = "vendors")
@@ -36,9 +36,9 @@ public class Vendor extends AbstractDatedDatabaseItem {
         if (this == o) return true;
         if (!(o instanceof Vendor)) return false;
 
-        Vendor rubric = (Vendor) o;
+        Vendor otherVendor = (Vendor) o;
 
-        if (!title.equals(rubric.title)) return false;
+        if (!title.equals(otherVendor.title)) return false;
 
         return true;
     }

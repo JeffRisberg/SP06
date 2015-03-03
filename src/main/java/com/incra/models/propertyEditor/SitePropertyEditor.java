@@ -1,14 +1,14 @@
 package com.incra.models.propertyEditor;
 
 import com.incra.models.Site;
-import com.incra.services.SiteService;
+import com.incra.services.VendorService;
 
 import java.beans.PropertyEditorSupport;
 
 public class SitePropertyEditor extends PropertyEditorSupport {
-    private final SiteService siteService;
+    private final VendorService siteService;
 
-    public SitePropertyEditor(SiteService siteService) {
+    public SitePropertyEditor(VendorService siteService) {
         this.siteService = siteService;
     }
 

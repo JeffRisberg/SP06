@@ -5,7 +5,7 @@ import com.incra.database.AbstractDatedDatabaseItem;
 import javax.persistence.*;
 
 /**
- * Piece of a page
+ * One charity in the system.
  *
  * @author Jeff Risberg
  * @since July 2014
@@ -17,14 +17,6 @@ public class Charity extends AbstractDatedDatabaseItem {
     @Basic
     private String title;
 
-    @Basic
-    @Column(name = "body", length = 10000)
-    private String body;
-
-    @Basic
-    @Column(name = "seq_num")
-    private Integer seqNum;
-
     @ManyToOne
     private Charity parent;
 
@@ -34,22 +26,6 @@ public class Charity extends AbstractDatedDatabaseItem {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public Integer getSeqNum() {
-        return seqNum;
-    }
-
-    public void setSeqNum(Integer seqNum) {
-        this.seqNum = seqNum;
     }
 
     public Charity getParent() {
@@ -81,7 +57,7 @@ public class Charity extends AbstractDatedDatabaseItem {
     public String toString() {
         StringBuffer sb = new StringBuffer();
 
-        sb.append("Rubric[title=");
+        sb.append("Charity[title=");
         sb.append(title);
         sb.append("]");
 

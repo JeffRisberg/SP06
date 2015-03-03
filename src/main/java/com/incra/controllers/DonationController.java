@@ -2,10 +2,9 @@ package com.incra.controllers;
 
 import com.incra.models.Vendor;
 import com.incra.models.Site;
-import com.incra.models.propertyEditor.SitePropertyEditor;
-import com.incra.services.BoxService;
+import com.incra.services.DonationService;
 import com.incra.services.PageFrameworkService;
-import com.incra.services.SiteService;
+import com.incra.services.VendorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,25 +29,23 @@ import java.util.List;
  * @since 03/12/14
  */
 @Controller
-public class BoxController extends AbstractAdminController {
-    protected static Logger logger = LoggerFactory.getLogger(BoxController.class);
+public class DonationController extends AbstractAdminController {
+    protected static Logger logger = LoggerFactory.getLogger(DonationController.class);
 
     @Autowired
-    private BoxService boxService;
+    private DonationService boxService;
     @Autowired
-    private SiteService siteService;
+    private VendorService siteService;
     @Autowired
     private PageFrameworkService pageFrameworkService;
 
-    public BoxController() {
+    public DonationController() {
     }
 
     @InitBinder
     protected void initBinder(WebDataBinder dataBinder) throws Exception {
         dataBinder.registerCustomEditor
                 (Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"), false));
-        dataBinder.registerCustomEditor(Site.class,
-                new SitePropertyEditor(siteService));
     }
 
     @RequestMapping(value = "/box/**")

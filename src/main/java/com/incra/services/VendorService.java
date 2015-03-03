@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Transactional
 @Repository
-public class SiteService {
+public class VendorService {
 
     @PersistenceContext
     private EntityManager em;

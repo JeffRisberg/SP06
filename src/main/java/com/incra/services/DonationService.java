@@ -1,7 +1,6 @@
 package com.incra.services;
 
 import com.incra.models.Vendor;
-import com.incra.models.Site;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,14 +14,14 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
- * The <i>BoxService</i> handles the JPA-based updating of Box entities.
+ * The <i>DonationService</i> handles the JPA-based updating of Box entities.
  *
  * @author Jeffrey Risberg
- * @since February 2014
+ * @since September 2014
  */
 @Transactional
 @Repository
-public class BoxService {
+public class DonationService {
 
     @PersistenceContext
     private EntityManager em;
@@ -71,16 +70,5 @@ public class BoxService {
         if (null != existingBox) {
             em.remove(existingBox);
         }
-    }
-
-    public List<Vendor> findEntityListBySite(Site site) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Vendor> criteria = builder.createQuery(Vendor.class);
-        Root<Vendor> root = criteria.from(Vendor.class);
-
-        Path<Site> rootSite = root.get("site");
-        criteria.where(builder.equal(rootSite, site));
-
-        return em.createQuery(criteria).getResultList();
     }
 }

@@ -2,7 +2,7 @@ package com.incra.controllers;
 
 import com.incra.models.Site;
 import com.incra.services.PageFrameworkService;
-import com.incra.services.SiteService;
+import com.incra.services.VendorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +27,15 @@ import java.util.List;
  * @since 03/12/14
  */
 @Controller
-public class SiteController extends AbstractAdminController {
-    protected static Logger logger = LoggerFactory.getLogger(SiteController.class);
+public class VendorController extends AbstractAdminController {
+    protected static Logger logger = LoggerFactory.getLogger(VendorController.class);
 
     @Autowired
-    private SiteService siteService;
+    private VendorService siteService;
     @Autowired
     private PageFrameworkService pageFrameworkService;
 
-    public SiteController() {
+    public VendorController() {
     }
 
     @InitBinder
