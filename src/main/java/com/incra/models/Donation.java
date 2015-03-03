@@ -1,41 +1,52 @@
 package com.incra.models;
 
 import com.incra.database.AbstractDatabaseItem;
+import com.incra.database.AbstractDatedDatabaseItem;
 
 import javax.persistence.*;
 
 /**
- * Region on a page
+ * A donation has a amouse
  *
  * @author Jeff Risberg
- * @since February 2014
+ * @since September 2014
  */
 @Entity
-@Table(name = "rubric_box")
-public class Donation extends AbstractDatabaseItem {
+@Table(name = "donations")
+public class Donation extends AbstractDatedDatabaseItem {
 
     @ManyToOne
-    @JoinColumn(name = "rubric_id", nullable = false)
-    protected Charity rubric;
+    @JoinColumn(name = "charity_id", nullable = false)
+    protected Charity charity;
 
     @ManyToOne
-    @JoinColumn(name = "box_id", nullable = false)
-    protected Vendor box;
+    @JoinColumn(name = "user_id", nullable = false)
+    protected User user;
 
-    public Vendor getBox() {
-        return box;
+    protected float amount;
+
+    public Charity getCharity() {
+        return charity;
     }
 
-    public void setBox(Vendor box) {
-        this.box = box;
+    public void setCharity(Charity charity) {
+        this.charity = charity;
     }
 
-    public Charity getRubric() {
-        return rubric;
+    public User getUser() {
+        return user;
     }
 
-    public void setRubric(Charity rubric) {
-        this.rubric = rubric;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
     @Override
@@ -43,18 +54,17 @@ public class Donation extends AbstractDatabaseItem {
         if (this == o) return true;
         if (!(o instanceof Donation)) return false;
 
-        Donation rubricBox = (Donation) o;
+        Donation otherDonation = (Donation) o;
 
-        if (!box.equals(rubricBox.box)) return false;
-        if (!rubric.equals(rubricBox.rubric)) return false;
+        if (!charity.equals(otherDonation.charity)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = rubric.hashCode();
-        result = 31 * result + box.hashCode();
+        int result = 0;
+        result = 31 * result + user.hashCode();
         return result;
     }
 
@@ -62,8 +72,8 @@ public class Donation extends AbstractDatabaseItem {
     public String toString() {
         StringBuffer sb = new StringBuffer();
 
-        sb.append("RubricBox[rubric_id=");
-        sb.append(rubric.getId());
+        sb.append("Donation[amount=");
+        sb.append(getAmount());
         sb.append("]");
 
         return sb.toString();
