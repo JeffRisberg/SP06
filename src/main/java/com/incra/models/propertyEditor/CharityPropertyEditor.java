@@ -5,16 +5,16 @@ import com.incra.services.CharityService;
 
 import java.beans.PropertyEditorSupport;
 
-public class RubricPropertyEditor extends PropertyEditorSupport {
-    private final CharityService rubricService;
+public class CharityPropertyEditor extends PropertyEditorSupport {
+    private final CharityService charityService;
 
-    public RubricPropertyEditor(CharityService rubricService) {
-        this.rubricService = rubricService;
+    public CharityPropertyEditor(CharityService charityService) {
+        this.charityService = charityService;
     }
 
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
-        setValue(rubricService.findEntityById(Integer.parseInt(text)));
+        setValue(charityService.findEntityById(Integer.parseInt(text)));
     }
 
     @Override

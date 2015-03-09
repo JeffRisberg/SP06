@@ -41,9 +41,9 @@ public class Charity extends AbstractDatedDatabaseItem {
         if (this == o) return true;
         if (!(o instanceof Charity)) return false;
 
-        Charity rubric = (Charity) o;
+        Charity otherCharity = (Charity) o;
 
-        if (!title.equals(rubric.title)) return false;
+        if (!title.equals(otherCharity.title)) return false;
 
         return true;
     }

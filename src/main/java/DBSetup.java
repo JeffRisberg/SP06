@@ -41,9 +41,9 @@ public class DBSetup {
         lsfb.createDatabaseSchema();
         System.out.println("schema created");
 
-        // dummy users
-        loadSetupFile(appContext, "DB_Populate_10_Users.sql");
-        loadSetupFile(appContext, "DB_Populate_20_Vendors.sql");
+        loadSetupFile(appContext, "DB_Populate_05_Analytics.sql");
+        loadSetupFile(appContext, "DB_Populate_10_Vendors.sql");
+        loadSetupFile(appContext, "DB_Populate_20_Users.sql");
         loadSetupFile(appContext, "DB_Populate_30_Charities.sql");
         loadSetupFile(appContext, "DB_Populate_40_Donations.sql");
     }

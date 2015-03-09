@@ -13,24 +13,24 @@ import javax.persistence.Table;
  * @since April 2014
  */
 @Entity
-@Table(name = "measure")
+@Table(name = "measures")
 public class Measure extends AbstractDatedDatabaseItem {
 
     // type must go here somewhere
 
     @Basic
-    private String title;
+    private String name;
 
     // Constructor
     public Measure() {
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
 
@@ -39,24 +39,24 @@ public class Measure extends AbstractDatedDatabaseItem {
         if (this == o) return true;
         if (!(o instanceof Measure)) return false;
 
-        Measure rubric = (Measure) o;
+        Measure measure = (Measure) o;
 
-        if (!title.equals(rubric.title)) return false;
+        if (!name.equals(measure.name)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return title.hashCode();
+        return name.hashCode();
     }
 
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
 
-        sb.append("Measure[title=");
-        sb.append(title);
+        sb.append("Measure[name=");
+        sb.append(name);
         sb.append("]");
 
         return sb.toString();

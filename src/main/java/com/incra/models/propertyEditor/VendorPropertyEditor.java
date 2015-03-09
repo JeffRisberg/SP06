@@ -1,20 +1,20 @@
 package com.incra.models.propertyEditor;
 
 import com.incra.models.Vendor;
-import com.incra.services.DonationService;
+import com.incra.services.VendorService;
 
 import java.beans.PropertyEditorSupport;
 
-public class BoxPropertyEditor extends PropertyEditorSupport {
-    private final DonationService boxService;
+public class VendorPropertyEditor extends PropertyEditorSupport {
+    private final VendorService vendorService;
 
-    public BoxPropertyEditor(DonationService boxService) {
-        this.boxService = boxService;
+    public VendorPropertyEditor(VendorService vendorService) {
+        this.vendorService = vendorService;
     }
 
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
-        setValue(boxService.findEntityById(Integer.parseInt(text)));
+        setValue(vendorService.findEntityById(Integer.parseInt(text)));
     }
 
     @Override

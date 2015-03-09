@@ -13,24 +13,24 @@ import java.util.List;
  * @since April 2014
  */
 @Entity
-@Table(name = "dimension")
+@Table(name = "dimensions")
 public class Dimension extends AbstractDatedDatabaseItem {
 
     // type must go here somewhere
 
     @Basic
-    private String title;
+    private String name;
 
     // Constructor
     public Dimension() {
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
 
@@ -39,24 +39,24 @@ public class Dimension extends AbstractDatedDatabaseItem {
         if (this == o) return true;
         if (!(o instanceof Dimension)) return false;
 
-        Dimension rubric = (Dimension) o;
+        Dimension dimension = (Dimension) o;
 
-        if (!title.equals(rubric.title)) return false;
+        if (!name.equals(dimension.name)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return title.hashCode();
+        return name.hashCode();
     }
 
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
 
-        sb.append("Dimension[title=");
-        sb.append(title);
+        sb.append("Dimension[name=");
+        sb.append(name);
         sb.append("]");
 
         return sb.toString();

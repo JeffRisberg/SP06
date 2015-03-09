@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The <i>RubricService</i> handles the JPA-based updating of Rubric entities.
+ * The <i>CharityService</i> handles the JPA-based updating of Charity entities.
  *
  * @author Jeffrey Risberg
  * @since February 2014
@@ -56,22 +56,22 @@ public class CharityService {
         }
     }
 
-    public void save(Charity rubric) {
-        if (rubric.getId() == null || rubric.getId() == 0) {
-            em.persist(rubric);
+    public void save(Charity charity) {
+        if (charity.getId() == null || charity.getId() == 0) {
+            em.persist(charity);
         } else {
-            em.merge(rubric);
+            em.merge(charity);
         }
     }
 
-    public void delete(Charity rubric) {
-        this.delete(rubric.getId());
+    public void delete(Charity charity) {
+        this.delete(charity.getId());
     }
 
-    public void delete(int rubricId) {
-        Charity existingRubric = this.findEntityById(rubricId);
-        if (null != existingRubric) {
-            em.remove(existingRubric);
+    public void delete(int charityId) {
+        Charity existingCharity = this.findEntityById(charityId);
+        if (null != existingCharity) {
+            em.remove(existingCharity);
         }
     }
 
@@ -86,9 +86,9 @@ public class CharityService {
         List<Donation> rbList = em.createQuery(criteria).getResultList();
         List<Charity> result = new ArrayList<Charity>();
 
-        for (Donation rb : rbList) {
-            result.add(rb.getRubric());
-        }
+        //for (Donation rb : rbList) {
+        //    result.add(rb.getCharity());
+        //}
 
         return result;
     }

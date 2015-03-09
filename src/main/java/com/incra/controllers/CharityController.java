@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The <i>RubricController</i> controller implements CRUD operations on Rubrics.
+ * The <i>CharityController</i> controller implements CRUD operations on Charities.
  *
  * @author Jeffrey Risberg
  * @since 03/12/14
@@ -31,7 +31,7 @@ public class CharityController extends AbstractAdminController {
     protected static Logger logger = LoggerFactory.getLogger(CharityController.class);
 
     @Autowired
-    private CharityService rubricService;
+    private CharityService charityService;
     @Autowired
     private PageFrameworkService pageFrameworkService;
 
@@ -44,98 +44,98 @@ public class CharityController extends AbstractAdminController {
                 (Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"), false));
     }
 
-    @RequestMapping(value = "/rubric/**")
+    @RequestMapping(value = "/charity/**")
     public String index() {
-        return "redirect:/rubric/list";
+        return "redirect:/charity/list";
     }
 
-    @RequestMapping(value = "/rubric/list")
+    @RequestMapping(value = "/charity/list")
     public ModelAndView list(Object criteria) {
 
-        List<Charity> rubricList = rubricService.findEntityList();
+        List<Charity> charityList = charityService.findEntityList();
 
-        ModelAndView modelAndView = new ModelAndView("rubric/list");
-        modelAndView.addObject("rubricList", rubricList);
+        ModelAndView modelAndView = new ModelAndView("charity/list");
+        modelAndView.addObject("charityList", charityList);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/rubric/show/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/charity/show/{id}", method = RequestMethod.GET)
     public String show(@PathVariable int id, Model model, HttpSession session) {
 
-        Charity rubric = rubricService.findEntityById(id);
-        if (rubric != null) {
-            model.addAttribute(rubric);
-            return "rubric/show";
+        Charity charity = charityService.findEntityById(id);
+        if (charity != null) {
+            model.addAttribute(charity);
+            return "charity/show";
         } else {
-            pageFrameworkService.setFlashMessage(session, "No Rubric with that id");
+            pageFrameworkService.setFlashMessage(session, "No Charity with that id");
             pageFrameworkService.setIsRedirect(session, Boolean.TRUE);
-            return "redirect:/rubric/list";
+            return "redirect:/charity/list";
         }
     }
 
-    @RequestMapping(value = "/rubric/create", method = RequestMethod.GET)
+    @RequestMapping(value = "/charity/create", method = RequestMethod.GET)
     public ModelAndView create() {
 
-        Charity rubric = new Charity();
+        Charity charity = new Charity();
 
-        ModelAndView modelAndView = new ModelAndView("rubric/create");
-        modelAndView.addObject("command", rubric);
+        ModelAndView modelAndView = new ModelAndView("charity/create");
+        modelAndView.addObject("command", charity);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/rubric/edit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/charity/edit/{id}", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable int id, String finalURL) {
-        Charity rubric = rubricService.findEntityById(id);
+        Charity charity = charityService.findEntityById(id);
 
-        ModelAndView modelAndView = new ModelAndView("rubric/edit");
-        modelAndView.addObject("command", rubric);
+        ModelAndView modelAndView = new ModelAndView("charity/edit");
+        modelAndView.addObject("command", charity);
         modelAndView.addObject("finalURL", finalURL);
 
         return modelAndView;
     }
 
-    @RequestMapping(value = "/rubric/save", method = RequestMethod.POST)
-    public String save(final @ModelAttribute("command") @Valid Charity rubric, String finalURL,
+    @RequestMapping(value = "/charity/save", method = RequestMethod.POST)
+    public String save(final @ModelAttribute("command") @Valid Charity charity, String finalURL,
                        BindingResult result, Model model, HttpSession session) {
 
         if (result.hasErrors()) {
-            return "rubric/edit";
+            return "charity/edit";
         }
 
         try {
-            if (rubric.getDateCreated() == null) rubric.setDateCreated(new Date());
-            rubric.setLastUpdated(new Date());
+            if (charity.getDateCreated() == null) charity.setDateCreated(new Date());
+            charity.setLastUpdated(new Date());
 
-            rubricService.save(rubric);
+            charityService.save(charity);
         } catch (RuntimeException re) {
             pageFrameworkService.setFlashMessage(session, re.getMessage());
             pageFrameworkService.setIsRedirect(session, Boolean.TRUE);
-            return "redirect:/rubric/list";
+            return "redirect:/charity/list";
         }
         if (finalURL != null && finalURL.length() > 0) {
             return "redirect:" + finalURL;
         } else {
-            return "redirect:/rubric/list";
+            return "redirect:/charity/list";
         }
     }
 
-    @RequestMapping(value = "/rubric/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/charity/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable int id, HttpSession session) {
 
-        Charity rubric = rubricService.findEntityById(id);
-        if (rubric != null) {
+        Charity charity = charityService.findEntityById(id);
+        if (charity != null) {
             try {
-                rubricService.delete(rubric);
+                charityService.delete(charity);
             } catch (RuntimeException re) {
                 pageFrameworkService.setFlashMessage(session, re.getMessage());
                 pageFrameworkService.setIsRedirect(session, Boolean.TRUE);
-                return "redirect:/rubric/show/" + id;
+                return "redirect:/charity/show/" + id;
             }
         } else {
-            pageFrameworkService.setFlashMessage(session, "No Rubric with that id");
+            pageFrameworkService.setFlashMessage(session, "No Charity with that id");
             pageFrameworkService.setIsRedirect(session, Boolean.TRUE);
         }
 
-        return "redirect:/rubric/list";
+        return "redirect:/charity/list";
     }
 }
