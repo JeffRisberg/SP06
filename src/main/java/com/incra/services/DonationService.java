@@ -1,6 +1,6 @@
 package com.incra.services;
 
-import com.incra.models.Vendor;
+import com.incra.models.Donation;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,22 +26,22 @@ public class DonationService {
     @PersistenceContext
     private EntityManager em;
 
-    public List<Vendor> findEntityList() {
+    public List<Donation> findEntityList() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Vendor> criteria = cb.createQuery(Vendor.class);
-        criteria.from(Vendor.class);
+        CriteriaQuery<Donation> criteria = cb.createQuery(Donation.class);
+        criteria.from(Donation.class);
 
         return em.createQuery(criteria).getResultList();
     }
 
-    public Vendor findEntityById(int id) {
-        return em.find(Vendor.class, id);
+    public Donation findEntityById(int id) {
+        return em.find(Donation.class, id);
     }
 
-    public Vendor findEntityByTitle(String title) {
+    public Donation findEntityByTitle(String title) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Vendor> criteria = builder.createQuery(Vendor.class);
-        Root<Vendor> root = criteria.from(Vendor.class);
+        CriteriaQuery<Donation> criteria = builder.createQuery(Donation.class);
+        Root<Donation> root = criteria.from(Donation.class);
 
         Path<String> rootTitle = root.get("title");
         criteria.where(builder.equal(rootTitle, title));
@@ -53,7 +53,7 @@ public class DonationService {
         }
     }
 
-    public void save(Vendor box) {
+    public void save(Donation box) {
         if (box.getId() == null || box.getId() == 0) {
             em.persist(box);
         } else {
@@ -61,12 +61,12 @@ public class DonationService {
         }
     }
 
-    public void delete(Vendor box) {
+    public void delete(Donation box) {
         this.delete(box.getId());
     }
 
     public void delete(int boxId) {
-        Vendor existingBox = this.findEntityById(boxId);
+        Donation existingBox = this.findEntityById(boxId);
         if (null != existingBox) {
             em.remove(existingBox);
         }

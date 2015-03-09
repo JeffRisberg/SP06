@@ -1,6 +1,6 @@
 package com.incra.controllers;
 
-import com.incra.models.Site;
+import com.incra.models.Vendor;
 import com.incra.services.PageFrameworkService;
 import com.incra.services.VendorService;
 import org.slf4j.Logger;
@@ -21,17 +21,17 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The <i>SiteController</i> controller implements CRUD operations on Sites.
+ * The <i>VendorController</i> controller implements CRUD operations on Vendors.
  *
  * @author Jeffrey Risberg
- * @since 03/12/14
+ * @since 08/12/14
  */
 @Controller
 public class VendorController extends AbstractAdminController {
     protected static Logger logger = LoggerFactory.getLogger(VendorController.class);
 
     @Autowired
-    private VendorService siteService;
+    private VendorService vendorService;
     @Autowired
     private PageFrameworkService pageFrameworkService;
 
@@ -44,94 +44,94 @@ public class VendorController extends AbstractAdminController {
                 (Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"), false));
     }
 
-    @RequestMapping(value = "/site/**")
+    @RequestMapping(value = "/vendor/**")
     public String index() {
-        return "redirect:/site/list";
+        return "redirect:/vendor/list";
     }
 
-    @RequestMapping(value = "/site/list")
+    @RequestMapping(value = "/vendor/list")
     public ModelAndView list(Object criteria) {
 
-        List<Site> siteList = siteService.findEntityList();
+        List<Vendor> vendorList = vendorService.findEntityList();
 
-        ModelAndView modelAndView = new ModelAndView("site/list");
-        modelAndView.addObject("siteList", siteList);
+        ModelAndView modelAndView = new ModelAndView("vendor/list");
+        modelAndView.addObject("vendorList", vendorList);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/site/show/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/vendor/show/{id}", method = RequestMethod.GET)
     public String show(@PathVariable int id, Model model, HttpSession session) {
 
-        Site site = siteService.findEntityById(id);
-        if (site != null) {
-            model.addAttribute(site);
-            return "site/show";
+        Vendor vendor = vendorService.findEntityById(id);
+        if (vendor != null) {
+            model.addAttribute(vendor);
+            return "vendor/show";
         } else {
-            pageFrameworkService.setFlashMessage(session, "No Site with that id");
+            pageFrameworkService.setFlashMessage(session, "No Vendor with that id");
             pageFrameworkService.setIsRedirect(session, Boolean.TRUE);
-            return "redirect:/site/list";
+            return "redirect:/vendor/list";
         }
     }
 
-    @RequestMapping(value = "/site/create", method = RequestMethod.GET)
+    @RequestMapping(value = "/vendor/create", method = RequestMethod.GET)
     public ModelAndView create() {
 
-        Site site = new Site();
+        Vendor vendor = new Vendor();
 
-        ModelAndView modelAndView = new ModelAndView("site/create");
-        modelAndView.addObject("command", site);
+        ModelAndView modelAndView = new ModelAndView("vendor/create");
+        modelAndView.addObject("command", vendor);
 
         return modelAndView;
     }
 
-    @RequestMapping(value = "/site/edit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/vendor/edit/{id}", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable int id) {
-        Site site = siteService.findEntityById(id);
+        Vendor vendor = vendorService.findEntityById(id);
 
-        ModelAndView modelAndView = new ModelAndView("site/edit");
-        modelAndView.addObject("command", site);
+        ModelAndView modelAndView = new ModelAndView("vendor/edit");
+        modelAndView.addObject("command", vendor);
 
         return modelAndView;
     }
 
-    @RequestMapping(value = "/site/save", method = RequestMethod.POST)
-    public String save(final @ModelAttribute("command") @Valid Site site,
+    @RequestMapping(value = "/vendor/save", method = RequestMethod.POST)
+    public String save(final @ModelAttribute("command") @Valid Vendor vendor,
                        BindingResult result, Model model, HttpSession session) {
 
         if (result.hasErrors()) {
-            return "site/edit";
+            return "vendor/edit";
         }
 
         try {
-            if (site.getDateCreated() == null) site.setDateCreated(getNow());
-            site.setLastUpdated(getNow());
+            if (vendor.getDateCreated() == null) vendor.setDateCreated(getNow());
+            vendor.setLastUpdated(getNow());
 
-            siteService.save(site);
+            vendorService.save(vendor);
         } catch (RuntimeException re) {
             pageFrameworkService.setFlashMessage(session, re.getMessage());
             pageFrameworkService.setIsRedirect(session, Boolean.TRUE);
-            return "redirect:/site/list";
+            return "redirect:/vendor/list";
         }
-        return "redirect:/site/list";
+        return "redirect:/vendor/list";
     }
 
-    @RequestMapping(value = "/site/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/vendor/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable int id, HttpSession session) {
 
-        Site site = siteService.findEntityById(id);
-        if (site != null) {
+        Vendor vendor = vendorService.findEntityById(id);
+        if (vendor != null) {
             try {
-                siteService.delete(site);
+                vendorService.delete(vendor);
             } catch (RuntimeException re) {
                 pageFrameworkService.setFlashMessage(session, re.getMessage());
                 pageFrameworkService.setIsRedirect(session, Boolean.TRUE);
-                return "redirect:/site/show/" + id;
+                return "redirect:/vendor/show/" + id;
             }
         } else {
-            pageFrameworkService.setFlashMessage(session, "No Site with that id");
+            pageFrameworkService.setFlashMessage(session, "No Vendor with that id");
             pageFrameworkService.setIsRedirect(session, Boolean.TRUE);
         }
 
-        return "redirect:/site/list";
+        return "redirect:/vendor/list";
     }
 }

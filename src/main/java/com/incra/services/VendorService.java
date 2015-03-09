@@ -1,6 +1,6 @@
 package com.incra.services;
 
-import com.incra.models.Site;
+import com.incra.models.Vendor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
- * The <i>SiteService</i> handles the JPA-based updating of Site entities.
+ * The <i>VendorService</i> handles the JPA-based updating of Vendor entities.
  *
  * @author Jeffrey Risberg
  * @since February 2014
@@ -26,22 +26,22 @@ public class VendorService {
     @PersistenceContext
     private EntityManager em;
 
-    public List<Site> findEntityList() {
+    public List<Vendor> findEntityList() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Site> criteria = cb.createQuery(Site.class);
-        criteria.from(Site.class);
+        CriteriaQuery<Vendor> criteria = cb.createQuery(Vendor.class);
+        criteria.from(Vendor.class);
 
         return em.createQuery(criteria).getResultList();
     }
 
-    public Site findEntityById(int id) {
-        return em.find(Site.class, id);
+    public Vendor findEntityById(int id) {
+        return em.find(Vendor.class, id);
     }
 
-    public Site findEntityByName(String name) {
+    public Vendor findEntityByName(String name) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Site> criteria = builder.createQuery(Site.class);
-        Root<Site> root = criteria.from(Site.class);
+        CriteriaQuery<Vendor> criteria = builder.createQuery(Vendor.class);
+        Root<Vendor> root = criteria.from(Vendor.class);
 
         Path<String> rootName = root.get("name");
         criteria.where(builder.equal(rootName, name));
@@ -53,22 +53,22 @@ public class VendorService {
         }
     }
 
-    public void save(Site site) {
-        if (site.getId() == null || site.getId() == 0) {
-            em.persist(site);
+    public void save(Vendor vendor) {
+        if (vendor.getId() == null || vendor.getId() == 0) {
+            em.persist(vendor);
         } else {
-            em.merge(site);
+            em.merge(vendor);
         }
     }
 
-    public void delete(Site site) {
-        this.delete(site.getId());
+    public void delete(Vendor vendor) {
+        this.delete(vendor.getId());
     }
 
-    public void delete(int siteId) {
-        Site existingSite = this.findEntityById(siteId);
-        if (null != existingSite) {
-            em.remove(existingSite);
+    public void delete(int vendorId) {
+        Vendor existingVendor = this.findEntityById(vendorId);
+        if (null != existingVendor) {
+            em.remove(existingVendor);
         }
     }
 }

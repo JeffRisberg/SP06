@@ -1,7 +1,8 @@
 package com.incra.controllers;
 
+import com.incra.models.Donation;
 import com.incra.models.Vendor;
-import com.incra.models.Site;
+import com.incra.services.CharityService;
 import com.incra.services.DonationService;
 import com.incra.services.PageFrameworkService;
 import com.incra.services.VendorService;
@@ -33,9 +34,11 @@ public class DonationController extends AbstractAdminController {
     protected static Logger logger = LoggerFactory.getLogger(DonationController.class);
 
     @Autowired
-    private DonationService boxService;
+    private DonationService donationService;
     @Autowired
-    private VendorService siteService;
+    private VendorService vendorService;
+    @Autowired
+    private CharityService charityService;
     @Autowired
     private PageFrameworkService pageFrameworkService;
 
@@ -48,98 +51,94 @@ public class DonationController extends AbstractAdminController {
                 (Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"), false));
     }
 
-    @RequestMapping(value = "/box/**")
+    @RequestMapping(value = "/donation/**")
     public String index() {
-        return "redirect:/box/list";
+        return "redirect:/donation/list";
     }
 
-    @RequestMapping(value = "/box/list")
+    @RequestMapping(value = "/donation/list")
     public ModelAndView list(Object criteria) {
 
-        List<Vendor> boxList = boxService.findEntityList();
+        List<Donation> donationList = donationService.findEntityList();
 
-        ModelAndView modelAndView = new ModelAndView("box/list");
-        modelAndView.addObject("boxList", boxList);
+        ModelAndView modelAndView = new ModelAndView("donation/list");
+        modelAndView.addObject("donationList", donationList);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/box/show/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/donation/show/{id}", method = RequestMethod.GET)
     public String show(@PathVariable int id, Model model, HttpSession session) {
 
-        Vendor box = boxService.findEntityById(id);
-        if (box != null) {
-            model.addAttribute(box);
-            return "box/show";
+        Donation donation = donationService.findEntityById(id);
+        if (donation != null) {
+            model.addAttribute(donation);
+            return "donation/show";
         } else {
             pageFrameworkService.setFlashMessage(session, "No Box with that id");
             pageFrameworkService.setIsRedirect(session, Boolean.TRUE);
-            return "redirect:/box/list";
+            return "redirect:/donation/list";
         }
     }
 
-    @RequestMapping(value = "/box/create", method = RequestMethod.GET)
+    @RequestMapping(value = "/donation/create", method = RequestMethod.GET)
     public ModelAndView create() {
 
-        Vendor box = new Vendor();
-        List<Site> siteList = siteService.findEntityList();
+        Donation donation = new Donation();
 
-        ModelAndView modelAndView = new ModelAndView("box/create");
-        modelAndView.addObject("siteList", siteList);
-        modelAndView.addObject("command", box);
+        ModelAndView modelAndView = new ModelAndView("donation/create");
+        modelAndView.addObject("command", donation);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/box/edit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/donation/edit/{id}", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable int id) {
-        
-        Vendor box = boxService.findEntityById(id);
-        List<Site> siteList = siteService.findEntityList();
 
-        ModelAndView modelAndView = new ModelAndView("box/edit");
-        modelAndView.addObject("siteList", siteList);
-        modelAndView.addObject("command", box);
+        Donation donation = donationService.findEntityById(id);
+
+        ModelAndView modelAndView = new ModelAndView("donation/edit");
+        modelAndView.addObject("command", donation);
 
         return modelAndView;
     }
 
-    @RequestMapping(value = "/box/save", method = RequestMethod.POST)
-    public String save(final @ModelAttribute("command") @Valid Vendor box,
+    @RequestMapping(value = "/donation/save", method = RequestMethod.POST)
+    public String save(final @ModelAttribute("command") @Valid Donation donation,
                        BindingResult result, Model model, HttpSession session) {
 
         if (result.hasErrors()) {
-            return "box/edit";
+            return "donation/edit";
         }
 
         try {
-            if (box.getDateCreated() == null) box.setDateCreated(new Date());
-            box.setLastUpdated(new Date());
+            if (donation.getDateCreated() == null) donation.setDateCreated(new Date());
+            donation.setLastUpdated(new Date());
 
-            boxService.save(box);
+            donationService.save(donation);
         } catch (RuntimeException re) {
             pageFrameworkService.setFlashMessage(session, re.getMessage());
             pageFrameworkService.setIsRedirect(session, Boolean.TRUE);
-            return "redirect:/box/list";
+            return "redirect:/donation/list";
         }
-        return "redirect:/box/list";
+        return "redirect:/donation/list";
     }
 
-    @RequestMapping(value = "/box/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/donation/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable int id, HttpSession session) {
 
-        Vendor box = boxService.findEntityById(id);
-        if (box != null) {
+        Donation donation = donationService.findEntityById(id);
+        if (donation != null) {
             try {
-                boxService.delete(box);
+                donationService.delete(donation);
             } catch (RuntimeException re) {
                 pageFrameworkService.setFlashMessage(session, re.getMessage());
                 pageFrameworkService.setIsRedirect(session, Boolean.TRUE);
-                return "redirect:/box/show/" + id;
+                return "redirect:/donation/show/" + id;
             }
         } else {
             pageFrameworkService.setFlashMessage(session, "No Box with that id");
             pageFrameworkService.setIsRedirect(session, Boolean.TRUE);
         }
 
-        return "redirect:/box/list";
+        return "redirect:/donation/list";
     }
 }
