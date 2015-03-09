@@ -1,6 +1,5 @@
 package com.incra.controllers;
 
-import com.incra.models.Site;
 import com.incra.models.User;
 import com.incra.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
