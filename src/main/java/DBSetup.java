@@ -43,8 +43,9 @@ public class DBSetup {
 
         // dummy users
         loadSetupFile(appContext, "DB_Populate_10_Users.sql");
-        loadSetupFile(appContext, "DB_Populate_20_Sites.sql");
-        loadSetupFile(appContext, "DB_Populate_30_Rubrics.sql");
+        loadSetupFile(appContext, "DB_Populate_20_Vendors.sql");
+        loadSetupFile(appContext, "DB_Populate_30_Charities.sql");
+        loadSetupFile(appContext, "DB_Populate_40_Donations.sql");
     }
 
     @SuppressWarnings("deprecation")
