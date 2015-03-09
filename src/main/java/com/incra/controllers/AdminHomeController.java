@@ -12,10 +12,10 @@ import java.util.List;
 
 /**
  * The <i>AdminHomeController</i> controller generates the home screen for all
- * admin functions, such as Sites, Boxes, and Users.
+ * admin functions, such as Vendors, Charities, and Donations.
  *
  * @author Jeffrey Risberg
- * @since 11/15/11
+ * @since August 2014
  */
 @Controller
 public class AdminHomeController extends AbstractAdminController {
@@ -36,13 +36,13 @@ public class AdminHomeController extends AbstractAdminController {
         List<AdminPanel> adminPanelList = new ArrayList<AdminPanel>();
         AdminPanel adminPanel;
 
-        adminPanel = new AdminPanel("Sites", "/site");
+        adminPanel = new AdminPanel("Vendors", "/vendor");
         adminPanelList.add(adminPanel);
 
-        adminPanel = new AdminPanel("Boxes", "/box");
+        adminPanel = new AdminPanel("Charities", "/charity");
         adminPanelList.add(adminPanel);
 
-        adminPanel = new AdminPanel("Rubrics", "/rubric");
+        adminPanel = new AdminPanel("Donations", "/donation");
         adminPanelList.add(adminPanel);
 
         adminPanel = new AdminPanel("Users", "/user");
