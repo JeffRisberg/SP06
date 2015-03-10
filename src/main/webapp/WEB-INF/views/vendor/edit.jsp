@@ -12,7 +12,7 @@
     <div class="message">${flashMessage}</div>
 </c:if>
 
-<c:url var="saveUrl" value="/site/save"/>
+<c:url var="saveUrl" value="/vendor/save"/>
 <form:form method="post" action="${saveUrl}">
     <form:hidden path="id"/>
 
@@ -21,11 +21,6 @@
             <td>Name:</td>
             <td><form:input path="name" size="40"/></td>
             <td><form:errors path="name" cssClass="error"/></td>
-        </tr>
-        <tr>
-            <td>Custom CSS:</td>
-            <td><form:input path="customCSS" size="40"/></td>
-            <td><form:errors path="customCSS" cssClass="error"/></td>
         </tr>
     </table>
 
