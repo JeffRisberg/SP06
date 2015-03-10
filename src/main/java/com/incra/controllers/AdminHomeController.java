@@ -36,6 +36,12 @@ public class AdminHomeController extends AbstractAdminController {
         List<AdminPanel> adminPanelList = new ArrayList<AdminPanel>();
         AdminPanel adminPanel;
 
+        adminPanel = new AdminPanel("Reporting", "/reporting");
+        adminPanelList.add(adminPanel);
+
+        adminPanel = new AdminPanel("Analytics", "/analytics");
+        adminPanelList.add(adminPanel);
+
         adminPanel = new AdminPanel("Vendors", "/vendor");
         adminPanelList.add(adminPanel);
 
