@@ -14,4 +14,44 @@
 
 Analytics.
 
-NvD3 chart appears here.
+<div id="dimensionResults">
+    <div class="list">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="dimension" items="${dimensions}" varStatus="rowCounter">
+                <tr class="${rowCounter.count % 2 == 0 ? 'even' : 'odd'}">
+                    <td>
+                            ${dimension.name}
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="measureResults">
+    <div class="list">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="measure" items="${measures}" varStatus="rowCounter">
+                <tr class="${rowCounter.count % 2 == 0 ? 'even' : 'odd'}">
+                    <td>
+                            ${measure.name}
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
