@@ -17,7 +17,7 @@
     <link href="<c:url value="/resources/styles/datepicker.css" />" rel="stylesheet" type="text/css" media="screen"/>
     <link href="<c:url value="/resources/styles/styles.css" />" rel="stylesheet" type="text/css" media="screen"/>
 
-    <script type="text/javascript" src="<c:url value="/resources/javascript/angular.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/angularjs/angular.js" />"></script>
     <script type="text/javascript" src="<c:url value="/resources/javascript/jquery-1.11.1.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-datepicker.js" />"></script>
