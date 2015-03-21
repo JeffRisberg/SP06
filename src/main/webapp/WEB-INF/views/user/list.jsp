@@ -30,7 +30,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${users}" var="user">
+            <c:forEach items="${userList}" var="user">
                 <tr>
                     <td>
                         <a href="<c:url value="/show/${user.id}" />">${user.lastName}, ${user.firstName}</a>

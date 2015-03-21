@@ -28,11 +28,6 @@ public class UserController {
                 (Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"), false));
     }
 
-    @RequestMapping("/")
-    public String root() {
-        return "redirect:/user";
-    }
-
     @RequestMapping(value = "/user/**")
     public String index() {
         return "redirect:/user/list";
@@ -41,10 +36,10 @@ public class UserController {
     @RequestMapping(value = "/user/list", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
 
-        List<User> users = userService.findEntityList();
+        List<User> userList = userService.findEntityList();
 
         model.addAttribute("user", new User());
-        model.addAttribute("users", users);
+        model.addAttribute("userList", userList);
         return "user/list";
     }
 
