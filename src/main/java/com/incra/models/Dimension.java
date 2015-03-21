@@ -18,8 +18,14 @@ public class Dimension extends AbstractDatedDatabaseItem {
 
     // type must go here somewhere
 
-    @Basic
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "table_name")
+    private String tableName;
+
+    @Column(name = "field_name")
+    private String fieldName;
 
     // Constructor
     public Dimension() {
@@ -33,6 +39,21 @@ public class Dimension extends AbstractDatedDatabaseItem {
         this.name = name;
     }
 
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
 
     @Override
     public boolean equals(Object o) {

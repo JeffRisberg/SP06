@@ -20,4 +20,7 @@
         <td>${user.email}</td>
     </tr>
 </table>
-<a href="<c:url value='/user' />" class="btn btn-default">Back</a>
+
+<div class="botButtons">
+    <a href="<c:url value="/user/${user.id}" />" class="btn btn-default">Edit</a>
+</div>

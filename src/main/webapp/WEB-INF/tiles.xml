@@ -65,7 +65,7 @@
     </definition>
 
     <definition name="vendor/*" extends="standardLayout">
-        <put-attribute name="title" value="Boxes"/>
+        <put-attribute name="title" value="Vendors"/>
         <put-attribute name="body" value="/WEB-INF/views/vendor/{1}.jsp"/>
     </definition>
 

@@ -3,17 +3,29 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:url var="saveUrl" value="/save"/>
-<form:form method="post" action="${saveUrl}">
-    <form:hidden path="id"/>
-
-    <div>
-        First Name:<br/>
-        <form:input path="firstName"/>
+<form:form method="post" action="save" commandName="user" class="form-horizontal">
+    <div class="control-group">
+        <form:label cssClass="control-label" path="firstName">First Name:</form:label>
+        <div class="controls">
+            <form:input path="firstName"/>
+        </div>
     </div>
-    <div>
-        Last Name:<br/>
-        <form:input path="lastName"/>
+    <div class="control-group">
+        <form:label cssClass="control-label" path="lastName">Last Name:</form:label>
+        <div class="controls">
+            <form:input path="lastName"/>
+        </div>
     </div>
+    <div class="control-group">
+        <form:label cssClass="control-label" path="email">Email:</form:label>
+        <div class="controls">
+            <form:input path="email"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" value="Add User" class="btn"/>
 
-    <input type="submit" value="Submit">
+        </div>
+    </div>
 </form:form>

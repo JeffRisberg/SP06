@@ -20,14 +20,16 @@ Analytics.
             <thead>
             <tr>
                 <th>Name</th>
+                <th>Table Name</th>
+                <th>Field Name</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="dimension" items="${dimensions}" varStatus="rowCounter">
                 <tr class="${rowCounter.count % 2 == 0 ? 'even' : 'odd'}">
-                    <td>
-                            ${dimension.name}
-                    </td>
+                    <td>${dimension.name}</td>
+                    <td>${dimension.tableName}</td>
+                    <td>${dimension.fieldName}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -41,14 +43,14 @@ Analytics.
             <thead>
             <tr>
                 <th>Name</th>
+                <th>Field Name</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="measure" items="${measures}" varStatus="rowCounter">
                 <tr class="${rowCounter.count % 2 == 0 ? 'even' : 'odd'}">
-                    <td>
-                            ${measure.name}
-                    </td>
+                    <td>${measure.name}</td>
+                    <td>${measure.fieldName}</td>
                 </tr>
             </c:forEach>
             </tbody>

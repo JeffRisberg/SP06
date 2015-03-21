@@ -8,14 +8,15 @@
 
 <div class="row" style="padding-top: 8px">
     <div class="col-md-6" style="font-size: 16px; font-weight: bold">
-        Find, edit, and create your vendors
+        Find, edit, and create your Vendors
     </div>
     <div class="col-md-6">
         <a href="<c:url value="/vendor/create" />" class="pull-right btn btn-default" style="padding: 0px 10px">
-            Create New Site &raquo
+            Create New Vendor &raquo
         </a>
     </div>
 </div>
+
 <div id="vendorResults">
     <div class="list">
         <table class="table">

@@ -3,6 +3,7 @@ package com.incra.models;
 import com.incra.database.AbstractDatedDatabaseItem;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -18,8 +19,11 @@ public class Measure extends AbstractDatedDatabaseItem {
 
     // type must go here somewhere
 
-    @Basic
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "field_name")
+    private String fieldName;
 
     // Constructor
     public Measure() {
@@ -33,6 +37,13 @@ public class Measure extends AbstractDatedDatabaseItem {
         this.name = name;
     }
 
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
 
     @Override
     public boolean equals(Object o) {

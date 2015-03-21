@@ -22,6 +22,8 @@
             <thead>
             <tr>
                 <th>Name</th>
+                <th>Ein</th>
+                <th>Description</th>
                 <th>Date Created</th>
                 <th>Last Updated</th>
                 <th>Action</th>
@@ -32,7 +34,9 @@
                 <tr class="${rowCounter.count % 2 == 0 ? 'even' : 'odd'}">
                     <td>
                         <a href="<c:url value="/charity/show/${charity.id}" />">${charity.name}</a>
-                    </td>                    
+                    </td>
+                    <td>${charity.ein}</td>
+                    <td>${charity.description}</td>
                     <td>${charity.dateCreated}</td>
                     <td>${charity.lastUpdated}</td>
                     <td>

@@ -1,6 +1,7 @@
 package com.incra.controllers;
 
 import com.incra.models.User;
+import com.incra.models.Vendor;
 import com.incra.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -28,11 +29,16 @@ public class UserController {
     }
 
     @RequestMapping("/")
-    public String index() {
+    public String root() {
         return "redirect:/user";
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/**")
+    public String index() {
+        return "redirect:/user/list";
+    }
+
+    @RequestMapping(value = "/user/list", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
 
         List<User> users = userService.findEntityList();
@@ -53,6 +59,17 @@ public class UserController {
         } else {
             return "redirect:/";
         }
+    }
+
+    @RequestMapping(value = "/user/create", method = RequestMethod.GET)
+    public ModelAndView create() {
+
+        User user = new User();
+
+        ModelAndView modelAndView = new ModelAndView("user/create");
+        modelAndView.addObject("command", user);
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
