@@ -59,19 +59,19 @@
         <put-attribute name="body" value="/WEB-INF/views/user/{1}.jsp"/>
     </definition>
 
-    <definition name="site/*" extends="standardLayout">
-        <put-attribute name="title" value="Sites"/>
-        <put-attribute name="body" value="/WEB-INF/views/site/{1}.jsp"/>
+    <definition name="charity/*" extends="standardLayout">
+        <put-attribute name="title" value="Charities"/>
+        <put-attribute name="body" value="/WEB-INF/views/charity/{1}.jsp"/>
     </definition>
 
-    <definition name="box/*" extends="standardLayout">
+    <definition name="vendor/*" extends="standardLayout">
         <put-attribute name="title" value="Boxes"/>
-        <put-attribute name="body" value="/WEB-INF/views/box/{1}.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/vendor/{1}.jsp"/>
     </definition>
 
-    <definition name="rubric/*" extends="standardLayout">
-        <put-attribute name="title" value="Rubric"/>
-        <put-attribute name="body" value="/WEB-INF/views/rubric/{1}.jsp"/>
+    <definition name="donation/*" extends="standardLayout">
+        <put-attribute name="title" value="Donations"/>
+        <put-attribute name="body" value="/WEB-INF/views/donation/{1}.jsp"/>
     </definition>
 
 </tiles-definitions>

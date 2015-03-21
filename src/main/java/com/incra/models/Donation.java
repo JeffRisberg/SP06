@@ -20,8 +20,8 @@ public class Donation extends AbstractDatedDatabaseItem {
     protected Charity charity;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    protected User user;
+    @JoinColumn(name = "donor_id", nullable = false)
+    protected User donor;
 
     protected float amount;
 
@@ -33,12 +33,12 @@ public class Donation extends AbstractDatedDatabaseItem {
         this.charity = charity;
     }
 
-    public User getUser() {
-        return user;
+    public User getDonor() {
+        return donor;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setDonor(User donor) {
+        this.donor = donor;
     }
 
     public float getAmount() {
@@ -64,7 +64,7 @@ public class Donation extends AbstractDatedDatabaseItem {
     @Override
     public int hashCode() {
         int result = 0;
-        result = 31 * result + user.hashCode();
+        result = 31 * result + donor.hashCode();
         return result;
     }
 

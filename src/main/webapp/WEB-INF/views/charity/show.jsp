@@ -10,6 +10,10 @@
         <td>Name:</td>
         <td>${charity.name}</td>
     </tr>
+    <tr>
+        <td>Description:</td>
+        <td>${charity.description}</td>
+    </tr>
 </table>
 
 <div class="botButtons">

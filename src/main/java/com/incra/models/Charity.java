@@ -14,8 +14,14 @@ import javax.persistence.*;
 @Table(name = "charities")
 public class Charity extends AbstractDatedDatabaseItem {
 
-    @Basic
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "ein")
+    private String ein;
 
     @ManyToOne
     private Charity parent;
@@ -26,6 +32,22 @@ public class Charity extends AbstractDatedDatabaseItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getEin() {
+        return ein;
+    }
+
+    public void setEin(String ein) {
+        this.ein = ein;
     }
 
     public Charity getParent() {
