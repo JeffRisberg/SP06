@@ -12,7 +12,7 @@
     </tr>
     <tr>
         <td>Donor:</td>
-        <td>${donation.dateCreated}</td>
+        <td>${donation.donor.email}</td>
     </tr>
     <tr>
         <td>Charity:</td>
@@ -25,5 +25,5 @@
 </table>
 
 <div class="botButtons">
-    <a href="<c:url value="/doantion/edit/${donation.id}" />" class="btn btn-default">Edit</a>
+    <a href="<c:url value="/donation/edit/${donation.id}" />" class="btn btn-default">Edit</a>
 </div>

@@ -21,9 +21,11 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Name</th>
+                <th>Id</th>
                 <th>Date Created</th>
-                <th>Last Updated</th>
+                <th>Donor</th>
+                <th>Charity</th>
+                <th>Amount</th>
                 <th>Action</th>
             </tr>
             </thead>
