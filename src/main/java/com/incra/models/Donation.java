@@ -6,7 +6,7 @@ import com.incra.database.AbstractDatedDatabaseItem;
 import javax.persistence.*;
 
 /**
- * A donation has a amouse
+ * A donation has a date, a charity, a donor, and an amount.
  *
  * @author Jeff Risberg
  * @since September 2014
