@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -32,10 +34,19 @@ public class HomeController extends AbstractAdminController {
 
         List<Donation> donationList = donationService.findEntityList();
 
+        Collections.sort(donationList, new TimeSorter());
 
         ModelAndView modelAndView = new ModelAndView("home/index");
         modelAndView.addObject("donationList", donationList);
 
         return modelAndView;
+    }
+
+    public class TimeSorter implements Comparator<Donation> {
+
+        public int compare(Donation don1, Donation don2) {
+            if (don1.getDateCreated().before(don2.getDateCreated())) return -1;
+            return 1;
+        }
     }
 }

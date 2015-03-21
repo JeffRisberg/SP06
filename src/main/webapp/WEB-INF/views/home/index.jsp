@@ -22,7 +22,7 @@
             <thead>
             <tr>
                 <th>Charity</th>
-                <th>Amount</th>
+                <th style="text-align: right">Amount</th>
                 <th>Date</th>
             </tr>
             </thead>
@@ -30,29 +30,8 @@
             <c:forEach var="donation" items="${donationList}" varStatus="rowCounter">
                 <tr class="${rowCounter.count % 2 == 0 ? 'even' : 'odd'}">
                     <td>${donation.charity.title}</td>
-                    <td>${donation.amount}</td>
+                    <td style="text-align: right">${donation.amount}</td>
                     <td>${donation.dateCreated}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div id="measureResults">
-    <div class="list">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Field Name</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="measure" items="${measures}" varStatus="rowCounter">
-                <tr class="${rowCounter.count % 2 == 0 ? 'even' : 'odd'}">
-                    <td>${measure.name}</td>
-                    <td>${measure.fieldName}</td>
                 </tr>
             </c:forEach>
             </tbody>

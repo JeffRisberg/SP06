@@ -25,7 +25,7 @@
                 <th>Date Created</th>
                 <th>Donor</th>
                 <th>Charity</th>
-                <th>Amount</th>
+                <th style="text-align: right">Amount</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -38,7 +38,7 @@
                     <td>${donation.dateCreated}</td>
                     <td>${donation.donor.email}</td>
                     <td>${donation.charity.title}</td>
-                    <td>${donation.amount}</td>
+                    <td style="text-align: right">${donation.amount}</td>
                     <td>
                         <a class="btn btn-default" style="padding: 0px 10px"
                            href="<c:url value="/donation/edit/${donation.id}" />">Edit</a>
