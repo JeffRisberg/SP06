@@ -33,16 +33,16 @@
             <c:forEach items="${userList}" var="user">
                 <tr>
                     <td>
-                        <a href="<c:url value="/show/${user.id}" />">${user.lastName}, ${user.firstName}</a>
+                        <a href="<c:url value="/user/show/${user.id}" />">${user.lastName}, ${user.firstName}</a>
                     </td>
                     <td>${user.email}</td>
                     <td>
-                        <a href="<c:url value="/edit/${user.id}" />" class="btn btn-default" style="padding: 0px 13px">
+                        <a href="<c:url value="/user/edit/${user.id}" />" class="btn btn-default" style="padding: 0px 13px">
                             Edit
                         </a>
                     </td>
                     <td>
-                        <a href="<c:url value="/delete/${user.id}" />" class="btn btn-default"
+                        <a href="<c:url value="/user/delete/${user.id}" />" class="btn btn-default"
                            style="padding: 0px 13px">
                             Delete
                         </a>

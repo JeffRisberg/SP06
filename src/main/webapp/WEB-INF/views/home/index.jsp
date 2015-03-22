@@ -40,8 +40,13 @@
 </div>
 
 <div class="row" style="margin-bottom: 20px">
-    <div class="col-md-3"><a class="btn btn-primary" href="/reporting">Reporting</a></div>
-    <div class="col-md-3"><a class="btn btn-primary" href="/donations">Donations</a></div>
-    <div class="col-md-3"><a class="btn btn-primary" href="/charities">Charities</a></div>
-    <div class="col-md-3"><a class="btn btn-primary" href="/donors">Donors</a></div>
+    <div class="col-md-10">
+        <a class="btn btn-primary" href="<c:url value="/reporting" />">Reporting</a>
+        <a class="btn btn-primary" href="<c:url value="/donation" />">Donations</a>
+        <a class="btn btn-primary" href="<c:url value="/charity" />">Charities</a>
+        <a class="btn btn-primary" href="<c:url value="/user" />">Users</a>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-primary pull-right" href="<c:url value="/adminHome" />">Admin</a>
+    </div>
 </div>

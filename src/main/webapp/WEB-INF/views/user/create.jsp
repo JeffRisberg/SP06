@@ -2,8 +2,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<c:url var="saveUrl" value="/save"/>
-<form:form method="post" action="save" commandName="user" class="form-horizontal">
+<c:url var="saveUrl" value="/user/save"/>
+<form:form method="post" action="${saveURL}">
     <div class="control-group">
         <form:label cssClass="control-label" path="firstName">First Name:</form:label>
         <div class="controls">
@@ -25,7 +25,6 @@
     <div class="control-group">
         <div class="controls">
             <input type="submit" value="Add User" class="btn"/>
-
         </div>
     </div>
 </form:form>

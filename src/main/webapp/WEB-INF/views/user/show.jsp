@@ -22,5 +22,5 @@
 </table>
 
 <div class="botButtons">
-    <a href="<c:url value="/user/${user.id}" />" class="btn btn-default">Edit</a>
+    <a href="<c:url value="/user/edit/${user.id}" />" class="btn btn-default">Edit</a>
 </div>

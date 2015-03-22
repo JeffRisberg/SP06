@@ -43,7 +43,7 @@ public class UserController {
         return "user/list";
     }
 
-    @RequestMapping(value = "/show/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/show/{userId}", method = RequestMethod.GET)
     public String showUser(@PathVariable("userId") int userId, Model model) {
 
         User user = userService.findEntityById(userId);
@@ -78,7 +78,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/save", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute("user") User user, BindingResult result) {
 
         userService.save(user);
@@ -86,7 +86,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/delete/{userId}")
+    @RequestMapping(value = "/user/delete/{userId}")
     public String deleteUser(@PathVariable("userId") int userId) {
 
         userService.delete(userService.findEntityById(userId));

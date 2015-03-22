@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<c:url var="saveUrl" value="/save"/>
+<c:url var="saveUrl" value="/user/save"/>
 <form:form method="post" action="${saveUrl}">
     <form:hidden path="id"/>
 
