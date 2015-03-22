@@ -36,6 +36,10 @@ public class HomeController extends AbstractAdminController {
 
         Collections.sort(donationList, new TimeSorter());
 
+        while (donationList.size() > 5) {
+            donationList.remove(donationList.size() - 1);
+        }
+
         ModelAndView modelAndView = new ModelAndView("home/index");
         modelAndView.addObject("donationList", donationList);
 
