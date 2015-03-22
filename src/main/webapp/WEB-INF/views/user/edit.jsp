@@ -31,4 +31,5 @@
     </div>
 
     <form:hidden path="dateCreated"/>
+    <form:hidden path="password"/>
 </form:form>
