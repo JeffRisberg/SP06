@@ -2,6 +2,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<h3>Create a new Vendor</h3>
+
 <c:url var="saveUrl" value="/vendor/save"/>
 <form:form method="post" action="${saveUrl}">
     <form:hidden path="id"/>

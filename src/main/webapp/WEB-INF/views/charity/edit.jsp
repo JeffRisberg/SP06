@@ -21,6 +21,16 @@
             <td><form:input path="title" size="40"/></td>
             <td><form:errors path="title" cssClass="error"/></td>
         </tr>
+        <tr>
+            <td>Description:</td>
+            <td><form:input path="description" size="40"/></td>
+            <td><form:errors path="description" cssClass="error"/></td>
+        </tr>
+        <tr>
+            <td>Ein:</td>
+            <td><form:input path="ein" size="40"/></td>
+            <td><form:errors path="ein" cssClass="error"/></td>
+        </tr>
     </table>
 
     <div class="botButtons">

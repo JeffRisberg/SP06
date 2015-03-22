@@ -2,6 +2,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<h3>Create a new User</h3>
+
 <c:url var="saveUrl" value="/user/save"/>
 <form:form method="post" action="${saveURL}">
     <div class="control-group">
@@ -23,8 +25,14 @@
         </div>
     </div>
     <div class="control-group">
+        <form:label cssClass="control-label" path="password">Password:</form:label>
         <div class="controls">
-            <input type="submit" value="Add User" class="btn"/>
+            <form:input path="password"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" value="Add User" class="btn btn-default"/>
         </div>
     </div>
 </form:form>
