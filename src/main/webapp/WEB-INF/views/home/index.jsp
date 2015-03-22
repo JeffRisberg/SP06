@@ -38,3 +38,10 @@
         </table>
     </div>
 </div>
+
+<div class="row" style="margin-bottom: 20px">
+    <div class="col-md-3"><a class="btn btn-primary" href="/reporting">Reporting</a></div>
+    <div class="col-md-3"><a class="btn btn-primary" href="/donations">Donations</a></div>
+    <div class="col-md-3"><a class="btn btn-primary" href="/charities">Charities</a></div>
+    <div class="col-md-3"><a class="btn btn-primary" href="/donors">Donors</a></div>
+</div>

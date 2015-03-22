@@ -49,7 +49,7 @@ public class HomeController extends AbstractAdminController {
     public class TimeSorter implements Comparator<Donation> {
 
         public int compare(Donation don1, Donation don2) {
-            if (don1.getDateCreated().before(don2.getDateCreated())) return -1;
+            if (don1.getDateCreated().after(don2.getDateCreated())) return -1;
             return 1;
         }
     }
