@@ -4,6 +4,7 @@ import com.incra.controllers.dto.AdminPanel;
 import com.incra.models.Donation;
 import com.incra.models.User;
 import com.incra.services.DonationService;
+import com.incra.services.PageFrameworkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class HomeController extends AbstractAdminController {
 
     @Autowired
     private DonationService donationService;
+    @Autowired
+    private PageFrameworkService pageFrameworkService;
 
     @RequestMapping("/")
     public ModelAndView root() {
@@ -46,10 +49,13 @@ public class HomeController extends AbstractAdminController {
         return modelAndView;
     }
 
+    /**
+     * Sort into reverse time order
+     */
     public class TimeSorter implements Comparator<Donation> {
 
-        public int compare(Donation don1, Donation don2) {
-            if (don1.getDateCreated().after(don2.getDateCreated())) return -1;
+        public int compare(Donation donation1, Donation donation2) {
+            if (donation1.getDateCreated().after(donation2.getDateCreated())) return -1;
             return 1;
         }
     }

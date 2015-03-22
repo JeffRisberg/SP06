@@ -57,6 +57,17 @@ public class UserService {
         return em.createQuery(criteria).getResultList();
     }
 
+    public List<User> findActiveEntityList() {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<User> criteria = builder.createQuery(User.class);
+        Root<User> root = criteria.from(User.class);
+
+        Path<Boolean> rootDeleted = root.get("deleted");
+        criteria.where(builder.equal(rootDeleted, Boolean.FALSE));
+
+        return em.createQuery(criteria).getResultList();
+    }
+
     public User findEntityById(Integer id) {
         return em.find(User.class, id);
     }

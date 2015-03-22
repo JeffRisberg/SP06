@@ -2,6 +2,7 @@ package com.incra.controllers;
 
 import com.incra.models.User;
 import com.incra.models.Vendor;
+import com.incra.services.PageFrameworkService;
 import com.incra.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -13,14 +14,18 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 @Controller
 public class UserController {
+
     @Autowired
     private UserService userService;
+    @Autowired
+    private PageFrameworkService pageFrameworkService;
 
     @InitBinder
     protected void initBinder(WebDataBinder dataBinder) throws Exception {
@@ -36,7 +41,7 @@ public class UserController {
     @RequestMapping(value = "/user/list", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
 
-        List<User> userList = userService.findEntityList();
+        List<User> userList = userService.findActiveEntityList();
 
         model.addAttribute("user", new User());
         model.addAttribute("userList", userList);
@@ -83,14 +88,21 @@ public class UserController {
 
         userService.save(user);
 
-        return "redirect:/";
+        return "redirect:/user";
     }
 
     @RequestMapping(value = "/user/delete/{userId}")
-    public String deleteUser(@PathVariable("userId") int userId) {
+    public String deleteUser(@PathVariable("userId") int userId, HttpSession session) {
 
-        userService.delete(userService.findEntityById(userId));
+        User user = userService.findEntityById(userId);
 
-        return "redirect:/";
+        if (user != null) {
+            user.setDeleted(true);
+
+            return "redirect:/user";
+        } else {
+            pageFrameworkService.setFlashMessage(session, "Could not find user with that id");
+            return "redirect:/user";
+        }
     }
 }
