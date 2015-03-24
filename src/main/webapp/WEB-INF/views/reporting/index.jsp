@@ -1,9 +1,11 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
-  .list { margin: 15px 0px; }
+    .list {
+        margin: 15px 0px;
+    }
 </style>
 
 <link href="<c:url value="/resources/styles/nv.d3.css" />" rel="stylesheet">
@@ -24,94 +26,63 @@
     }
 </style>
 
-<select id="direction" name="direction">
-    <option>Vertical</option>
-    <option>Horizontal</option>
-</select>
-
-<input type="checkbox" id="includeZero">Include Zero
-
 <div id="chart1">
     <svg></svg>
 </div>
 
 <script type="text/javascript">
     $(document).ready(function () {
+        loadReportData();
+    });
 
-        var direction = "Vertical";
-        var includeZero = false;
-        var accountsList = [];
+    var reportData = null;
 
-        $("#direction").on("change", function (e) {
-            direction = $('#direction').val();
-
-            if (accountsList.length > 0) {
-                redraw();
-            }
-        });
-
-        $("#includeZero").on("change", function (e) {
-            includeZero = $('#includeZero').is(':checked');
-
-            if (accountsList.length > 0) {
-                redraw();
-            }
-        });
-
-        d3.json("resources/accounts.json", function (error, data) {
-
-            accountsList = data;
+    function loadReportData() {
+        // make a request
+        $.getJSON("reporting/getData", { id: 1, format: "chart" }, function (data) {
+            reportData = data;
             redraw();
         });
+    }
 
-        function redraw() {
-            var minValue = Number.MAX_VALUE;
-            var maxValue = Number.MIN_VALUE;
+    function redraw() {
+        var minValue = Number.MAX_VALUE;
+        var maxValue = Number.MIN_VALUE;
 
-            accountsList.forEach(function (account) {
-                account.values.forEach(function (valuePair) {
-                    var value = valuePair.y;
+        reportData.dataPoints.forEach(function (valuePair) {
+            var value = valuePair.y;
 
-                    minValue = Math.min(value, minValue);
-                    maxValue = Math.max(value, maxValue);
-                })
-            });
+            minValue = Math.min(value, minValue);
+            maxValue = Math.max(value, maxValue);
+        });
 
-            nv.addGraph(function () {
-                var chart;
+        nv.addGraph(function () {
+            var chart;
 
-                if (direction == "Vertical") {
-                    chart = nv.models.multiBarChart()
-                            .showControls(false)   //Don't let user switch between 'Grouped' and 'Stacked' mode.
-                            .reduceXTicks(false);   //If 'false', every single x-axis tick label will be rendered.
-                }
-                else {
-                    chart = nv.models.multiBarHorizontalChart()
-                            .showControls(false)   //Don't let user switch between 'Grouped' and 'Stacked' mode.
-                            .showValues(true);
-                }
+            chart = nv.models.multiBarChart()
+                    .showControls(false)   //Don't let user switch between 'Grouped' and 'Stacked' mode.
+                    .reduceXTicks(false);   //If 'false', every single x-axis tick label will be rendered.
 
-                if (includeZero) {
-                    chart.forceY([0.0]);
-                }
-                else {
-                    chart.forceY([minValue * 0.97, maxValue]);
-                }
+            chart.yAxis
+                    .tickFormat(d3.format(',.1f'));
 
-                chart.yAxis
-                        .tickFormat(d3.format(',.1f'));
+            $('#chart1 svg').empty();
 
-                $('#chart1 svg').empty();
+            var datum = new Array();
+            var series = new Array();
+            series['yAxis'] = 1;
+            series['key'] = "Amount";
+            series['values'] = reportData.dataPoints;
+            datum.push(series);
 
-                d3.select('#chart1 svg')
-                        .datum(accountsList)
-                        .transition().duration(500)
-                        .call(chart);
+            d3.select('#chart1 svg')
+                    .datum(datum)
+                    .transition().duration(500)
+                    .call(chart);
 
-                nv.utils.windowResize(chart.update);
+            nv.utils.windowResize(chart.update);
 
-                return chart;
-            });
-        }
-    });
+            return chart;
+        });
+    }
 </script>
