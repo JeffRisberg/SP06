@@ -12,14 +12,22 @@
     <div class="message">${flashMessage}</div>
 </c:if>
 
-<c:url var="saveUrl" value="/charity/save"/>
+<c:url var="saveUrl" value="/donation/save"/>
 <form:form method="post" action="${saveUrl}">
     <form:hidden path="id"/>
     <table>
         <tr>
-            <td>Title:</td>
-            <td><form:input path="title" size="40"/></td>
-            <td><form:errors path="title" cssClass="error"/></td>
+            <td>Charity:</td>
+            <td>
+                <form:select path="charity">
+                    <form:options items="${charityList}" itemValue="id" itemLabel="name"/>
+                </form:select>
+            </td>
+        </tr>
+        <tr>
+            <td>Amount:</td>
+            <td><form:input path="amount" size="40"/></td>
+            <td><form:errors path="amount" cssClass="error"/></td>
         </tr>
     </table>
 

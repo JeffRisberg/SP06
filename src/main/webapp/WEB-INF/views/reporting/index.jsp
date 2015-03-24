@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <style>
     .list {
@@ -26,20 +27,44 @@
     }
 </style>
 
-<div id="chart1">
-    <svg></svg>
+<div class="row">
+    <div class="col-md-2">
+        <form:form id="analyticForm">
+            <h4>Dimension</h4>
+            <form:select path="dimension" id="dimensionOption">
+                <form:options items="${dimensionList}" itemValue="id" itemLabel="name"/>
+            </form:select>
+            <br/>
+            <h4>Measure</h4>
+            <form:select path="measure" id="measureOption">
+                <form:options items="${measureList}" itemValue="id" itemLabel="name"/>
+            </form:select>
+        </form:form>
+    </div>
+    <div class="col-md-10" id="chart1">
+        <svg></svg>
+    </div>
 </div>
 
 <script type="text/javascript">
     $(document).ready(function () {
         loadReportData();
+
+        $('#dimensionOption').bind('change', function () {
+            loadReportData();
+        });
+        $('#measureOption').bind('change', function () {
+            loadReportData();
+        });
     });
 
     var reportData = null;
 
     function loadReportData() {
-        // make a request
-        $.getJSON("reporting/getData", { id: 1, format: "chart" }, function (data) {
+        var dimensionId = $('dimensionOption').val();
+        var measureId = $('measureOption').val();
+
+        $.getJSON("reporting/getData", { id: 1, dimension: dimensionId, measure: measureId }, function (data) {
             reportData = data;
             redraw();
         });
