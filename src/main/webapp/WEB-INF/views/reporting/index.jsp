@@ -64,6 +64,8 @@
         var dimensionId = $('dimensionOption').val();
         var measureId = $('measureOption').val();
 
+        consolelog(dimensionId);
+
         $.getJSON("reporting/getData", { id: 1, dimension: dimensionId, measure: measureId }, function (data) {
             reportData = data;
             redraw();
