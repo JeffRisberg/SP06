@@ -2,8 +2,10 @@ package com.incra.controllers;
 
 import com.incra.models.User;
 import com.incra.models.Vendor;
+import com.incra.models.propertyEditor.VendorPropertyEditor;
 import com.incra.services.PageFrameworkService;
 import com.incra.services.UserService;
+import com.incra.services.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -25,12 +27,16 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
+    private VendorService vendorService;
+    @Autowired
     private PageFrameworkService pageFrameworkService;
 
     @InitBinder
     protected void initBinder(WebDataBinder dataBinder) throws Exception {
         dataBinder.registerCustomEditor
                 (Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"), false));
+        dataBinder.registerCustomEditor
+                (Vendor.class, new VendorPropertyEditor(vendorService));
     }
 
     @RequestMapping(value = "/user/**")

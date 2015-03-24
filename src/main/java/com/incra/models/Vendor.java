@@ -52,7 +52,7 @@ public class Vendor extends AbstractDatedDatabaseItem {
     public String toString() {
         StringBuffer sb = new StringBuffer();
 
-        sb.append("Box[name=");
+        sb.append("Vendor[name=");
         sb.append(name);
         sb.append("]");
 

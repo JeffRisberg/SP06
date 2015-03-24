@@ -32,4 +32,5 @@
 
     <form:hidden path="dateCreated"/>
     <form:hidden path="password"/>
+    <form:hidden path="vendor"/>
 </form:form>
