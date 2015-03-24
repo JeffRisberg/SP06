@@ -61,10 +61,10 @@
     var reportData = null;
 
     function loadReportData() {
-        var dimensionId = $('dimensionOption').val();
-        var measureId = $('measureOption').val();
+        var dimensionId = $('#dimensionOption').val();
+        var measureId = $('#measureOption').val();
 
-        consolelog(dimensionId);
+        console.log(dimensionId);
 
         $.getJSON("reporting/getData", { id: 1, dimension: dimensionId, measure: measureId }, function (data) {
             reportData = data;

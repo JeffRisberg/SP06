@@ -25,6 +25,7 @@ import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,7 +52,6 @@ public class ReportingController extends AbstractAdminController {
     public ReportingController() {
     }
 
-    //@Secured("ROLE_ADMIN")
     @RequestMapping(value = "/reporting/**")
     public ModelAndView index(HttpSession session) {
         ReportingSession reportingSession = getReportingSession(session);
@@ -79,6 +79,7 @@ public class ReportingController extends AbstractAdminController {
         try {
             dimensionId = Integer.parseInt(request.getParameter("dimension"));
             dimension = dimensionService.findEntityById(dimensionId);
+            reportingSession.setDimension(dimension);
         } catch (Exception e) {
         }
         Integer measureId = 1;
@@ -86,32 +87,52 @@ public class ReportingController extends AbstractAdminController {
         try {
             measureId = Integer.parseInt(request.getParameter("measure"));
             measure = measureService.findEntityById(measureId);
+            reportingSession.setMeasure(measure);
         } catch (Exception e) {
         }
 
-        System.out.println(dimension);
-        System.out.println(measure);
-
         Date fromDate = new Date(115, 0, 1);
         Date toDate = new Date(115, 9, 13);
-        ReportData reportData = new ReportData(1, "Amount", fromDate, toDate);
+        String key = measureId == 1 ? "Amount" : "Count";
 
-        String usersSql = "select u.email, sum(d.amount) from donations d " +
+        ReportData reportData = new ReportData(1, key, fromDate, toDate);
+        String sql = null;
+
+        String metric = measureId == 1 ? "sum(d.amount)" : "count(d.id)";
+
+        String usersSql = "select u.email, " + metric + " from donations d " +
                 "left join users u on u.id = d.donor_id " +
-                "group by u.id order by sum(d.amount) desc limit 5";
-        String charitiesSql = "select u.email, sum(d.amount) from donations d " +
+                "group by u.id order by " + metric + " desc limit 5";
+        String charitiesSql = "select c.title, " + metric + " from donations d " +
                 "left join charities c on c.id = d.charity_id " +
-                "group by c.id order by sum(d.amount) desc limit 5";
+                "group by c.id order by " + metric + " desc limit 5";
+        String vendorsSql = "select v.name, " + metric + " from donations d " +
+                "left join users u on u.id = d.donor_id " +
+                "left join vendors v on v.id = u.vendor_id " +
+                "group by v.id order by " + metric + " desc limit 5";
 
-        Query query = em.createNativeQuery(dimensionId == 1 ? usersSql : charitiesSql);
+        if (dimensionId == 1) sql = usersSql;
+        if (dimensionId == 2) sql = charitiesSql;
+        if (dimensionId == 3) sql = vendorsSql;
 
-        List<Object[]> rowList = query.getResultList();
+        if (sql != null) {
+            Query query = em.createNativeQuery(sql);
 
-        for (Object[] row : rowList) {
-            String email = (String) row[0];
-            Double amount = (Double) row[1];
+            List<Object[]> rowList = query.getResultList();
 
-            reportData.addPoint(email, amount);
+            for (Object[] row : rowList) {
+                String label = (String) row[0];
+                if (measureId == 1) {
+                    Double amount = (Double) row[1];
+
+                    reportData.addPoint(label, amount);
+                }
+                if (measureId == 2) {
+                    BigInteger count = (BigInteger) row[1];
+
+                    reportData.addPoint(label, count.doubleValue());
+                }
+            }
         }
 
         return reportData;
