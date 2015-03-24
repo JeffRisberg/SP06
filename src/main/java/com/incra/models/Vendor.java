@@ -17,18 +17,18 @@ import java.util.List;
 public class Vendor extends AbstractDatedDatabaseItem {
 
     @Basic
-    private String title;
+    private String name;
 
     // Constructor
     public Vendor() {
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -38,22 +38,22 @@ public class Vendor extends AbstractDatedDatabaseItem {
 
         Vendor otherVendor = (Vendor) o;
 
-        if (!title.equals(otherVendor.title)) return false;
+        if (!name.equals(otherVendor.name)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return title.hashCode();
+        return name.hashCode();
     }
 
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
 
-        sb.append("Box[title=");
-        sb.append(title);
+        sb.append("Box[name=");
+        sb.append(name);
         sb.append("]");
 
         return sb.toString();

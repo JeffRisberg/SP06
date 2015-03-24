@@ -22,7 +22,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Name</th>               
+                <th>Name</th>
                 <th>Date Created</th>
                 <th>Last Updated</th>
                 <th>Action</th>
@@ -39,8 +39,6 @@
                     <td>
                         <a class="btn btn-default" style="padding: 0px 10px"
                            href="<c:url value="/vendor/edit/${vendor.id}" />">Edit</a>
-                        <a class="btn btn-default" style="padding: 0px 10px"
-                           href="<c:url value="/vendor/delete/${vendor.id}" />">Delete</a>
                     </td>
                 </tr>
             </c:forEach>

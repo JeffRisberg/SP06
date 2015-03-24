@@ -45,6 +45,7 @@
         <a class="btn btn-primary" href="<c:url value="/donation" />">Donations</a>
         <a class="btn btn-primary" href="<c:url value="/charity" />">Charities</a>
         <a class="btn btn-primary" href="<c:url value="/user" />">Users</a>
+        <a class="btn btn-primary" href="<c:url value="/vendor" />">Vendors</a>
     </div>
     <div class="col-md-2">
         <a class="btn btn-primary pull-right" href="<c:url value="/adminHome" />">Admin</a>

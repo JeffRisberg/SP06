@@ -25,6 +25,7 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Vendor</th>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
             </tr>
@@ -36,6 +37,7 @@
                         <a href="<c:url value="/user/show/${user.id}" />">${user.lastName}, ${user.firstName}</a>
                     </td>
                     <td>${user.email}</td>
+                    <td>${user.vendor.name}</td>
                     <td>
                         <a href="<c:url value="/user/edit/${user.id}" />" class="btn btn-default" style="padding: 0px 13px">
                             Edit

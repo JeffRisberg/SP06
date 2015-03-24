@@ -11,6 +11,10 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User extends AbstractDatedDatabaseItem {
 
+    @ManyToOne
+    @JoinColumn(name = "vendor_id")
+    private Vendor vendor;
+
     @Basic
     private String firstName;
 
@@ -25,6 +29,18 @@ public class User extends AbstractDatedDatabaseItem {
 
     @Column(name = "deleted", nullable = false)
     private boolean deleted = false;
+
+    // Constructor
+    public User() {
+    }
+
+    public Vendor getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -85,5 +101,15 @@ public class User extends AbstractDatedDatabaseItem {
     @Override
     public int hashCode() {
         return email.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "User[" +
+                "vendor=" + vendor +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ']';
     }
 }

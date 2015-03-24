@@ -19,6 +19,10 @@
         <td>Email:</td>
         <td>${user.email}</td>
     </tr>
+    <tr>
+        <td>Vendor:</td>
+        <td>${user.vendor.name}</td>
+    </tr>
 </table>
 
 <div class="botButtons">
