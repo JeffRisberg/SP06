@@ -18,9 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +43,8 @@ public class ReportingController extends AbstractAdminController {
     private DimensionService dimensionService;
     @Autowired
     private MeasureService measureService;
+    @PersistenceContext
+    private EntityManager em;
 
     public ReportingController() {
     }
@@ -56,7 +63,7 @@ public class ReportingController extends AbstractAdminController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/reporting/getData", headers="Accept=application/json")
+    @RequestMapping(value = "/reporting/getData", headers = "Accept=application/json")
     public
     @ResponseBody
     ReportData getData(HttpSession session) {
@@ -64,13 +71,21 @@ public class ReportingController extends AbstractAdminController {
 
         Date fromDate = new Date(115, 0, 1);
         Date toDate = new Date(115, 9, 13);
-        List<Map> dataPoints = new ArrayList<Map>();
+        ReportData reportData = new ReportData(1, "Amount", fromDate, toDate);
 
-        ReportData reportData = new ReportData(fromDate, toDate, dataPoints);
+        Query query = em.createNativeQuery(
+                "select u.email, sum(d.amount) from donations d " +
+                        "left join users u on u.id = d.donor_id " +
+                        "group by u.id order by sum(d.amount) desc limit 5");
 
-        reportData.addPoint("Amex", 1234.56);
-        reportData.addPoint("Cisco", 522.67);
-        reportData.addPoint("JustGive", 478.12);
+        List<Object[]> rowList = query.getResultList();
+
+        for (Object[] row : rowList) {
+            String email = (String) row[0];
+            Double amount = (Double) row[1];
+
+            reportData.addPoint(email, amount);
+        }
 
         return reportData;
     }

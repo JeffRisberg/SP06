@@ -22,7 +22,7 @@
 <style>
     #chart1 svg {
         height: 300px;
-        width: 600px;
+        width: 800px;
     }
 </style>
 
@@ -70,8 +70,8 @@
 
             var datum = new Array();
             var series = new Array();
-            series['yAxis'] = 1;
-            series['key'] = "Amount";
+            series['yAxis'] = reportData.axisIndex;
+            series['key'] = reportData.key;
             series['values'] = reportData.dataPoints;
             datum.push(series);
 

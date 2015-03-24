@@ -1,6 +1,7 @@
 package com.incra.controllers.dto;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,14 +14,26 @@ import java.util.Map;
  * @since 09/06/14
  */
 public class ReportData {
-    public Date fromDate;
-    public Date toDate;
-    public List<Map> dataPoints;
+    protected int axisIndex;
+    protected String key;
+    protected Date fromDate;
+    protected Date toDate;
+    protected List<Map> dataPoints;
 
-    public ReportData(Date fromDate, Date toDate, List<Map> dataPoints) {
+    public ReportData(int axisIndex, String key, Date fromDate, Date toDate) {
+        this.axisIndex = axisIndex;
+        this.key = key;
         this.fromDate = fromDate;
         this.toDate = toDate;
-        this.dataPoints = dataPoints;
+        this.dataPoints = new ArrayList<Map>();
+    }
+
+    public int getAxisIndex() {
+        return axisIndex;
+    }
+
+    public String getKey() {
+        return key;
     }
 
     public Date getFromDate() {
