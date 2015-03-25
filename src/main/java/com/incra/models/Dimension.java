@@ -24,8 +24,11 @@ public class Dimension extends AbstractDatedDatabaseItem {
     @Column(name = "table_name")
     private String tableName;
 
-    @Column(name = "field_name")
-    private String fieldName;
+    @Column(name = "group_field")
+    private String groupField;
+
+    @Column(name = "label_field")
+    private String labelField;
 
     // Constructor
     public Dimension() {
@@ -47,12 +50,20 @@ public class Dimension extends AbstractDatedDatabaseItem {
         this.tableName = tableName;
     }
 
-    public String getFieldName() {
-        return fieldName;
+    public String getGroupField() {
+        return groupField;
     }
 
-    public void setFieldName(String fieldName) {
-        this.fieldName = fieldName;
+    public void setGroupField(String groupField) {
+        this.groupField = groupField;
+    }
+
+    public String getLabelField() {
+        return labelField;
+    }
+
+    public void setLabelField(String labelField) {
+        this.labelField = labelField;
     }
 
     @Override
