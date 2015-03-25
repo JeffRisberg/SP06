@@ -27,8 +27,8 @@ public class Dimension extends AbstractDatedDatabaseItem {
     @Column(name = "group_field")
     private String groupField;
 
-    @Column(name = "label_field")
-    private String labelField;
+    @Column(name = "category_field")
+    private String categoryField;
 
     // Constructor
     public Dimension() {
@@ -58,12 +58,12 @@ public class Dimension extends AbstractDatedDatabaseItem {
         this.groupField = groupField;
     }
 
-    public String getLabelField() {
-        return labelField;
+    public String getCategoryField() {
+        return categoryField;
     }
 
-    public void setLabelField(String labelField) {
-        this.labelField = labelField;
+    public void setCategoryField(String categoryField) {
+        this.categoryField = categoryField;
     }
 
     @Override

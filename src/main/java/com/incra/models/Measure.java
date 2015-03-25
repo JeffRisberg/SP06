@@ -22,8 +22,8 @@ public class Measure extends AbstractDatedDatabaseItem {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "field_name")
-    private String fieldName;
+    @Column(name = "expression")
+    private String expression;
 
     // Constructor
     public Measure() {
@@ -37,12 +37,12 @@ public class Measure extends AbstractDatedDatabaseItem {
         this.name = name;
     }
 
-    public String getFieldName() {
-        return fieldName;
+    public String getExpression() {
+        return expression;
     }
 
-    public void setFieldName(String fieldName) {
-        this.fieldName = fieldName;
+    public void setExpression(String expression) {
+        this.expression = expression;
     }
 
     @Override

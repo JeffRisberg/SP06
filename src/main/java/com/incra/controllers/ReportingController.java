@@ -93,44 +93,45 @@ public class ReportingController extends AbstractAdminController {
 
         Date fromDate = new Date(115, 0, 1);
         Date toDate = new Date(115, 9, 13);
-        String key = measureId == 1 ? "Amount" : "Count";
+        String tableName = dimension.getTableName();
+        String groupByField = dimension.getGroupField();
+        String categoryField = dimension.getCategoryField();
+        String name = measure.getName();
 
-        ReportData reportData = new ReportData(1, key, fromDate, toDate);
+        ReportData reportData = new ReportData(1, name, fromDate, toDate);
         String sql = null;
 
-        String metric = measureId == 1 ? "sum(d.amount)" : "count(d.id)";
+        String expression = measure.getExpression();
 
-        String usersSql = "select u.email, " + metric + " from donations d " +
+        String usersSql = "select " + tableName + "." + categoryField + ", " + expression + " from donations d " +
+                "left join users u on u.id = d.donor_id ";
+        String charitiesSql = "select " + tableName + "." + categoryField + "," + expression + " from donations d " +
+                "left join charities c on c.id = d.charity_id ";
+        String vendorsSql = "select " + tableName + "." + categoryField + ", " + expression + " from donations d " +
                 "left join users u on u.id = d.donor_id " +
-                "group by u.id order by " + metric + " desc limit 5";
-        String charitiesSql = "select c.title, " + metric + " from donations d " +
-                "left join charities c on c.id = d.charity_id " +
-                "group by c.id order by " + metric + " desc limit 5";
-        String vendorsSql = "select v.name, " + metric + " from donations d " +
-                "left join users u on u.id = d.donor_id " +
-                "left join vendors v on v.id = u.vendor_id " +
-                "group by v.id order by " + metric + " desc limit 5";
+                "left join vendors v on v.id = u.vendor_id ";
 
         if (dimensionId == 1) sql = usersSql;
         if (dimensionId == 2) sql = charitiesSql;
         if (dimensionId == 3) sql = vendorsSql;
 
+        sql += "group by " + tableName + "." + groupByField + " order by " + expression + " desc limit 5";
+
         if (sql != null) {
             Query query = em.createNativeQuery(sql);
-
             List<Object[]> rowList = query.getResultList();
 
             for (Object[] row : rowList) {
-                String label = (String) row[0];
-                if (measureId == 1) {
-                    Double amount = (Double) row[1];
+                String category = (String) row[0];
 
-                    reportData.addPoint(label, amount);
-                }
                 if (measureId == 2) {
                     BigInteger count = (BigInteger) row[1];
 
-                    reportData.addPoint(label, count.doubleValue());
+                    reportData.addPoint(category, count.doubleValue());
+                } else {
+                    Double amount = (Double) row[1];
+
+                    reportData.addPoint(category, amount);
                 }
             }
         }
