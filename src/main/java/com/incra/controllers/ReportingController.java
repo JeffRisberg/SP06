@@ -97,23 +97,22 @@ public class ReportingController extends AbstractAdminController {
         String groupByField = dimension.getGroupField();
         String categoryField = dimension.getCategoryField();
         String name = measure.getName();
-
-        ReportData reportData = new ReportData(1, name, fromDate, toDate);
-        String sql = null;
-
         String expression = measure.getExpression();
 
-        String usersSql = "select " + tableName + "." + categoryField + ", " + expression + " from donations d " +
-                "left join users u on u.id = d.donor_id ";
-        String charitiesSql = "select " + tableName + "." + categoryField + "," + expression + " from donations d " +
-                "left join charities c on c.id = d.charity_id ";
-        String vendorsSql = "select " + tableName + "." + categoryField + ", " + expression + " from donations d " +
-                "left join users u on u.id = d.donor_id " +
-                "left join vendors v on v.id = u.vendor_id ";
+        ReportData reportData = new ReportData(1, name, fromDate, toDate);
 
-        if (dimensionId == 1) sql = usersSql;
-        if (dimensionId == 2) sql = charitiesSql;
-        if (dimensionId == 3) sql = vendorsSql;
+        String sql = "select " + tableName + "." + categoryField + ", " + expression + " from donations ";
+
+        String usersSql = "left join users on users.id = donations.donor_id ";
+
+        String charitiesSql = "left join charities on charities.id = donations.charity_id ";
+
+        String vendorsSql = "left join users on users.id = donations.donor_id " +
+                "left join vendors on vendors.id = users.vendor_id ";
+
+        if (dimensionId == 1) sql += usersSql;
+        if (dimensionId == 2) sql += charitiesSql;
+        if (dimensionId == 3) sql += vendorsSql;
 
         sql += "group by " + tableName + "." + groupByField + " order by " + expression + " desc limit 5";
 
@@ -124,14 +123,18 @@ public class ReportingController extends AbstractAdminController {
             for (Object[] row : rowList) {
                 String category = (String) row[0];
 
-                if (measureId == 2) {
+                if (measure.getDatatype().equalsIgnoreCase("integer")) {
                     BigInteger count = (BigInteger) row[1];
 
                     reportData.addPoint(category, count.doubleValue());
-                } else {
+                } else if (measure.getDatatype().equalsIgnoreCase("double")) {
                     Double amount = (Double) row[1];
 
                     reportData.addPoint(category, amount);
+                } else if (measure.getDatatype().equalsIgnoreCase("float")) {
+                    Float amount = (Float) row[1];
+
+                    reportData.addPoint(category, amount.doubleValue());
                 }
             }
         }

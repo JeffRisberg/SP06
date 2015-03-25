@@ -17,13 +17,14 @@ import javax.persistence.Table;
 @Table(name = "measures")
 public class Measure extends AbstractDatedDatabaseItem {
 
-    // type must go here somewhere
-
     @Column(name = "name")
     private String name;
 
     @Column(name = "expression")
     private String expression;
+
+    @Column(name = "datatype")
+    private String datatype;
 
     // Constructor
     public Measure() {
@@ -43,6 +44,14 @@ public class Measure extends AbstractDatedDatabaseItem {
 
     public void setExpression(String expression) {
         this.expression = expression;
+    }
+
+    public String getDatatype() {
+        return datatype;
+    }
+
+    public void setDatatype(String datatype) {
+        this.datatype = datatype;
     }
 
     @Override
