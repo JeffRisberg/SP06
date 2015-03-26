@@ -46,6 +46,7 @@ public class DBSetup {
         loadSetupFile(appContext, "DB_Populate_20_Users.sql");
         loadSetupFile(appContext, "DB_Populate_30_Charities.sql");
         loadSetupFile(appContext, "DB_Populate_40_Donations.sql");
+        loadSetupFile(appContext, "DB_Populate_50_GiftCertificates.sql");
     }
 
     @SuppressWarnings("deprecation")
