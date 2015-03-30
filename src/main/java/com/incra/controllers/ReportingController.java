@@ -61,6 +61,7 @@ public class ReportingController extends AbstractAdminController {
         List<Dimension> dimensionList = dimensionService.findEntityList();
         List<Measure> measureList = measureService.findEntityList();
 
+        modelAndView.addObject("reportTypesList", ReportType.values());
         modelAndView.addObject("dimensionList", dimensionList);
         modelAndView.addObject("measureList", measureList);
         modelAndView.addObject("command", reportingSession);
