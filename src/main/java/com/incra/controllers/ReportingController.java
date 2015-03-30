@@ -61,7 +61,7 @@ public class ReportingController extends AbstractAdminController {
         List<Dimension> dimensionList = dimensionService.findEntityList();
         List<Measure> measureList = measureService.findEntityList();
 
-        modelAndView.addObject("reportTypesList", ReportType.values());
+        modelAndView.addObject("reportTypesList", ReportType.selectAll());
         modelAndView.addObject("dimensionList", dimensionList);
         modelAndView.addObject("measureList", measureList);
         modelAndView.addObject("command", reportingSession);
@@ -75,6 +75,16 @@ public class ReportingController extends AbstractAdminController {
     ReportData getData(HttpServletRequest request, HttpSession session) {
         ReportingSession reportingSession = getReportingSession(session);
 
+        String reportTypeKey = "Donations";
+        ReportType reportType = null;
+        try {
+            reportTypeKey = (String) request.getParameter("reportType");
+            reportType = ReportType.valueOf(reportTypeKey);
+            reportingSession.setReportType(reportType);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Integer dimensionId = 1;
         Dimension dimension = null;
         try {
@@ -82,7 +92,9 @@ public class ReportingController extends AbstractAdminController {
             dimension = dimensionService.findEntityById(dimensionId);
             reportingSession.setDimension(dimension);
         } catch (Exception e) {
+            e.printStackTrace();
         }
+
         Integer measureId = 1;
         Measure measure = null;
         try {
@@ -90,6 +102,7 @@ public class ReportingController extends AbstractAdminController {
             measure = measureService.findEntityById(measureId);
             reportingSession.setMeasure(measure);
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         Date fromDate = new Date(115, 0, 1);

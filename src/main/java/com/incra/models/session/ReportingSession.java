@@ -29,7 +29,9 @@ public class ReportingSession implements Serializable {
     }
 
     public void setReportType(ReportType reportType) {
+
         this.reportType = reportType;
+        System.out.println("new report type " + reportType);
     }
 
     public Dimension getDimension() {

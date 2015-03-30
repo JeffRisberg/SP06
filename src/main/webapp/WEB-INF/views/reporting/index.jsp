@@ -30,12 +30,10 @@
 <div class="row">
     <div class="col-md-2">
         <form:form id="analyticForm">
-            <%--
             <h4>Report Type</h4>
-            <form:select path="reportType" id="typeOption">
-                <form:options items="${reportTypeList}" itemsValue="id" itemLabel="name"/>
+            <form:select path="reportType" id="reportTypeOption">
+                <form:options items="${reportTypeList}" itemsValue="value" itemLabel="name"/>
             </form:select>
-            --%>
             <h4>Dimension</h4>
             <form:select path="dimension" id="dimensionOption">
                 <form:options items="${dimensionList}" itemValue="id" itemLabel="name"/>
@@ -56,6 +54,9 @@
     $(document).ready(function () {
         loadReportData();
 
+        $('#reportTypeOption').bind('change', function () {
+            loadReportData();
+        });
         $('#dimensionOption').bind('change', function () {
             loadReportData();
         });
@@ -67,12 +68,13 @@
     var reportData = null;
 
     function loadReportData() {
+        var reportTypeKey = $('#reportTypeOption').val();
         var dimensionId = $('#dimensionOption').val();
         var measureId = $('#measureOption').val();
 
         console.log(dimensionId);
 
-        $.getJSON("reporting/getData", { id: 1, dimension: dimensionId, measure: measureId }, function (data) {
+        $.getJSON("reporting/getData", { id: 1, reportType: reportTypeKey, dimension: dimensionId, measure: measureId }, function (data) {
             reportData = data;
             redraw();
         });
