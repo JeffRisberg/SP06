@@ -54,6 +54,11 @@
         <put-attribute name="body" value="/WEB-INF/views/reporting/{1}.jsp"/>
     </definition>
 
+    <definition name="dataTable/*" extends="standardLayout">
+        <put-attribute name="title" value="Data Table"/>
+        <put-attribute name="body" value="/WEB-INF/views/dataTable/{1}.jsp"/>
+    </definition>
+
     <definition name="analytics/*" extends="standardLayout">
         <put-attribute name="title" value="Analytics"/>
         <put-attribute name="body" value="/WEB-INF/views/analytics/{1}.jsp"/>
