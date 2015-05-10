@@ -64,53 +64,51 @@ public class DataTableController extends AbstractAdminController {
     @ResponseBody
     PersonJsonObject getData(HttpServletRequest request, HttpSession session) {
 
-        //Fetch the page number from client
         Integer pageNumber = 0;
-        if (null != request.getParameter("iDisplayStart"))
+        if (null != request.getParameter("iDisplayStart")) {
             pageNumber = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
-
-        //Fetch search parameter
-        String searchParameter = request.getParameter("sSearch");
-
-        //Fetch Page display length
-        Integer pageDisplayLength = Integer.valueOf(request.getParameter("iDisplayLength"));
-
-        if (searchParameter != null && !searchParameter.equals("")) {
-            //search
-            getListBasedOnSearchParameter(searchParameter, personsList);
         }
 
-        int fromIndex = (pageNumber * pageDisplayLength);
-        int toIndex = Math.min(personsList.size() - 1, fromIndex + pageDisplayLength);
-        List<Person> resultList = personsList.subList(fromIndex, toIndex);
+        Integer pageDisplayLength = Integer.valueOf(request.getParameter("iDisplayLength"));
+
+        String searchParameter = request.getParameter("sSearch");
+
+        List<Person> dataSet = personsList;
+        if (searchParameter != null && !searchParameter.equals("")) {
+            dataSet = getListBasedOnSearchParameter(searchParameter, personsList);
+            System.out.println("Search Result is " + dataSet.size() + " records");
+        }
+
+        int fromIndex = ((pageNumber - 1) * pageDisplayLength);
+        int toIndex = Math.min(dataSet.size() - 1, fromIndex + pageDisplayLength);
+        System.out.println("From index " + fromIndex + " to index " + toIndex);
+        List<Person> resultList = dataSet.subList(fromIndex, toIndex);
+        System.out.println("Result List is " + resultList.size() + " records");
 
         PersonJsonObject personJsonObject = new PersonJsonObject();
-        //Set Total display record
-        personJsonObject.setiTotalDisplayRecords(personsList.size());
-        //Set Total record
-        personJsonObject.setiTotalRecords(personsList.size());
+        personJsonObject.setiTotalDisplayRecords(dataSet.size());
+        personJsonObject.setiTotalRecords(dataSet.size());
         personJsonObject.setAaData(resultList);
 
         return personJsonObject;
     }
 
     private List<Person> getListBasedOnSearchParameter(String searchParameter, List<Person> personsList) {
+        List<Person> result = new ArrayList<Person>();
 
-        if (null != searchParameter && !searchParameter.equals("")) {
-            List<Person> personsListForSearch = new ArrayList<Person>();
-            searchParameter = searchParameter.toUpperCase();
-            for (Person person : personsList) {
-                if (person.getName().toUpperCase().indexOf(searchParameter) != -1 || person.getOffice().toUpperCase().indexOf(searchParameter) != -1
-                        || person.getPhone().toUpperCase().indexOf(searchParameter) != -1 || person.getPosition().toUpperCase().indexOf(searchParameter) != -1
-                        || person.getSalary().toUpperCase().indexOf(searchParameter) != -1 || person.getStart_date().toUpperCase().indexOf(searchParameter) != -1) {
-                    personsListForSearch.add(person);
-                }
+        searchParameter = searchParameter.toUpperCase();
 
+        for (Person person : personsList) {
+            if (person.getName().toUpperCase().indexOf(searchParameter) != -1
+                    || person.getOffice().toUpperCase().indexOf(searchParameter) != -1
+                    || person.getPhone().toUpperCase().indexOf(searchParameter) != -1
+                    || person.getPosition().toUpperCase().indexOf(searchParameter) != -1) {
+
+                result.add(person);
             }
-            personsList = personsListForSearch;
-            personsListForSearch = null;
         }
-        return personsList;
+
+        return result;
     }
 
     private List<Person> createPaginationData(int size) {
