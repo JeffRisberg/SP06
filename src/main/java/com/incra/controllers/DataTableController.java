@@ -39,10 +39,15 @@ import java.util.List;
 public class DataTableController extends AbstractAdminController {
     protected static Logger logger = LoggerFactory.getLogger(DataTableController.class);
 
+    protected static int dataSetSize = 1000;
+
     @PersistenceContext
     private EntityManager em;
 
+    private List<Person> personsList;
+
     public DataTableController() {
+        personsList = createPaginationData(dataSetSize);
     }
 
     @RequestMapping(value = "/dataTable/**")
@@ -70,32 +75,21 @@ public class DataTableController extends AbstractAdminController {
         //Fetch Page display length
         Integer pageDisplayLength = Integer.valueOf(request.getParameter("iDisplayLength"));
 
-        //Create page list data
-        List<Person> personsList = createPaginationData(pageDisplayLength);
-
-        //Here is server side pagination logic. Based on the page number you could make call
-        //to the data base create new list and send back to the client. For demo I am shuffling
-        //the same list to show data randomly
-        if (pageNumber == 1) {
-            Collections.shuffle(personsList);
-        } else if (pageNumber == 2) {
-            Collections.shuffle(personsList);
-        } else {
-            Collections.shuffle(personsList);
+        if (searchParameter != null && !searchParameter.equals("")) {
+            //search
+            getListBasedOnSearchParameter(searchParameter, personsList);
         }
 
-        //Search functionality: Returns filtered list based on search parameter
-        personsList = getListBasedOnSearchParameter(searchParameter, personsList);
+        int fromIndex = (pageNumber * pageDisplayLength);
+        int toIndex = Math.min(personsList.size() - 1, fromIndex + pageDisplayLength);
+        List<Person> resultList = personsList.subList(fromIndex, toIndex);
 
         PersonJsonObject personJsonObject = new PersonJsonObject();
         //Set Total display record
-        personJsonObject.setiTotalDisplayRecords(500);
+        personJsonObject.setiTotalDisplayRecords(personsList.size());
         //Set Total record
-        personJsonObject.setiTotalRecords(500);
-        personJsonObject.setAaData(personsList);
-
-        //Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        //String json2 = gson.toJson(personJsonObject);
+        personJsonObject.setiTotalRecords(personsList.size());
+        personJsonObject.setAaData(resultList);
 
         return personJsonObject;
     }
@@ -119,70 +113,47 @@ public class DataTableController extends AbstractAdminController {
         return personsList;
     }
 
-    private List<Person> createPaginationData(Integer pageDisplayLength) {
+    private List<Person> createPaginationData(int size) {
+
+        String[] firstNames = {"Robert", "John", "Jeff", "Emily", "Brandon", "Lauren", "Tom", "Luke", "Igor", "Arnold",
+                "Jane", "Helen", "Julia", "Roberta", "Larry", "Bill", "Sharon", "Peter", "Brian", "Vivek", "Aruna",
+                "Indu", "James", "George", "Ivan", "Hollie", "Susan", "Amy", "Micheal", "Elliot", "Hope", "Nancy",
+                "Richard", "Patrick", "Linda", "Yolanda", "Hank", "Steve", "Janet", "Roger", "Terry", "Barbara",
+                "William", "Gini", "Thomas", "Percy"};
+        String[] lastNames = {"Smith", "Jones", "Shepard", "Hill", "Lake", "Farmer", "Risberg", "Riopel", "Sandell",
+                "Browning", "Stone", "Underhill", "Woods", "Warner", "Deleon", "Fitzpatrick", "Stewart", "Steadman",
+                "Wagner", "Naples", "Palmer", "Glenn", "Carpenter", "Armstrong", "Grissom", "Bowles", "Clarke",
+                "Lovell", "Woodfill", "Fields", "Barton", "Schofield", "Lindberg", "Hayes", "Byrne", "Anderson",
+                "White", "Green", "Mitchel", "Christian", "Cooper", "Borman", "Mattingly"};
+        String[] positions = {"Sr. Architect", "Architect", "Designer", "Data Entry", "Purchasing Agent", "System Architect", "CEO", "Developer", "Sales Rep", "Support Rep", "Product Manager", "Accountant", "CFO", "Financial Analyst"};
+        String[] offices = {"New York", "London", "Dallas", "Tokyo", "San Francisco", "Chicago", "Boston", "Richmond", "Atlanta", "Memphis", "Denver", "Boulder"};
+        String[] salaries = {"$120,800", "$170,400", "$140,500", "$135,000", "$140,200", "$150,000", "$180,900"};
+        String[] startDates = {"05/05/2010", "06/03/1999", "02/05/2009", "12/12/2004", "03/14/2004", "09/26/2005", "04/15/2004"};
+
         List<Person> personsList = new ArrayList<Person>();
-        for (int i = 0; i < 1; i++) {
-            Person person2 = new Person();
-            person2.setName("John Landy");
-            person2.setPosition("System Architect");
-            person2.setSalary("$320,800");
-            person2.setOffice("NY");
-            person2.setPhone("999999999");
-            person2.setStart_date("05/05/2010");
-            personsList.add(person2);
+        for (int i = 0; i < size; i++) {
+            String firstName = firstNames[(int) (Math.random() * firstNames.length)];
+            String lastName = lastNames[(int) (Math.random() * lastNames.length)];
+            String position = positions[(int) (Math.random() * positions.length)];
+            String office = offices[(int) (Math.random() * offices.length)];
+            String salary = salaries[(int) (Math.random() * salaries.length)];
+            String startDate = startDates[(int) (Math.random() * startDates.length)];
 
-            person2 = new Person();
-            person2.setName("Igor Vornovitsky");
-            person2.setPosition("Solution Architect");
-            person2.setSalary("$340,800");
-            person2.setOffice("NY");
-            person2.setPhone("987897899");
-            person2.setStart_date("05/05/2010");
-            personsList.add(person2);
-
-            person2 = new Person();
-            person2.setName("Java Honk");
-            person2.setPosition("Architect");
-            person2.setSalary("$380,800");
-            person2.setOffice("NY");
-            person2.setPhone("1234567890");
-            person2.setStart_date("05/05/2010");
-            personsList.add(person2);
-
-            person2 = new Person();
-            person2.setName("Ramesh Arrepu");
-            person2.setPosition("Sr. Architect");
-            person2.setSalary("$310,800");
-            person2.setOffice("NY");
-            person2.setPhone("4654321234");
-            person2.setStart_date("05/05/2010");
-            personsList.add(person2);
-
-            person2 = new Person();
-            person2.setName("Bob Sidebottom");
-            person2.setPosition("Architect");
-            person2.setSalary("$300,800");
-            person2.setOffice("NJ");
-            person2.setPhone("9876543212");
-            person2.setStart_date("05/05/2010");
-            personsList.add(person2);
-
-        }
-
-        for (int i = 0; i < pageDisplayLength - 5; i++) {
-            Person person2 = new Person();
-            person2.setName("Zuke Torres");
-            person2.setPosition("System Architect");
-            person2.setSalary("$320,800");
-            person2.setOffice("NY");
-            person2.setPhone("999999999");
-            person2.setStart_date("05/05/2010");
-            personsList.add(person2);
+            Person person = new Person();
+            person.setName(firstName + " " + lastName);
+            person.setPosition(position);
+            person.setSalary(salary);
+            person.setOffice(office);
+            person.setPhone("800-555-1212");
+            person.setStart_date(startDate);
+            personsList.add(person);
         }
         return personsList;
     }
 
-    /** Used only in the above methods */
+    /**
+     * Used only in the above methods
+     */
     public class PersonJsonObject {
 
         int iTotalRecords;

@@ -44,7 +44,9 @@
                 {"mData": "phone"},
                 {"mData": "start_date"},
                 {"mData": "salary"}
-            ]
+            ],
+            "aoColumnDefs": [
+                {"sClass": "nowrap", "aTargets": [2]}]
         });
     });
 </script>
@@ -52,7 +54,7 @@
 <div style="margin-bottom: 10px">
     <form:form action="" method="GET">
         <h2>Spring MVC pagination using data tables<br><br></h2>
-        <table width="70%" style="border: 3px;background: rgb(243, 244, 248);">
+        <table width="80%" style="border: 3px; background: rgb(243, 244, 248);">
             <tr>
                 <td>
                     <table id="example" class="display" cellspacing="0" width="100%">
