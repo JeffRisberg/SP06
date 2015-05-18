@@ -80,7 +80,7 @@ public class DataTableController extends AbstractAdminController {
         }
 
         int fromIndex = ((pageNumber - 1) * pageDisplayLength);
-        int toIndex = Math.min(dataSet.size() - 1, fromIndex + pageDisplayLength);
+        int toIndex = Math.max(0, Math.min(dataSet.size() - 1, fromIndex + pageDisplayLength));
         System.out.println("From index " + fromIndex + " to index " + toIndex);
         List<Person> resultList = dataSet.subList(fromIndex, toIndex);
         System.out.println("Result List is " + resultList.size() + " records");
