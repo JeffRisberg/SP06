@@ -41,7 +41,6 @@
 
 <div class="row" style="margin-bottom: 20px">
     <div class="col-md-10">
-        <a class="btn btn-primary" href="<c:url value="/dataTable" />">DataTable</a>
         <a class="btn btn-primary" href="<c:url value="/reporting" />">Reporting</a>
         <a class="btn btn-primary" href="<c:url value="/donation" />">Donations</a>
         <a class="btn btn-primary" href="<c:url value="/charity" />">Charities</a>
