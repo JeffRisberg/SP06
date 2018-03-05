@@ -5,6 +5,6 @@
     SP06
 </div>
 <div style="float:right; font-weight: bold">
-    Example Spring 3.2.13 plus AngularJS application, with Bootstrap 3.3.2
+    Example Spring 3.2.13 with Bootstrap 3.3.2
 </div>
 <div style="clear:both"></div>

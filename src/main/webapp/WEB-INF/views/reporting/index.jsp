@@ -30,10 +30,6 @@
 <div class="row">
     <div class="col-md-2">
         <form:form id="analyticForm">
-            <h4>Report Type</h4>
-            <form:select path="reportType" id="reportTypeOption">
-                <form:options items="${reportTypeList}" itemsValue="value" itemLabel="name"/>
-            </form:select>
             <h4>Dimension</h4>
             <form:select path="dimension" id="dimensionOption">
                 <form:options items="${dimensionList}" itemValue="id" itemLabel="name"/>

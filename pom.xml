@@ -7,8 +7,7 @@
         Example Spring 3.2 program.
 
         Updated version of SP03, built in IntelliJ, to try out Spring 3.2
-        and related features, including using Angular JS to build a simple
-        reporting system.
+        and related features, including a simple reporting system.
 
         Based on Maven, with Selenium testing.
     </description>
