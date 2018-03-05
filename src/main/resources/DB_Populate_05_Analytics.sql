@@ -10,7 +10,7 @@ INSERT INTO dimensions (id, name, table_name, group_field, category_field, date_
 values (3, 'Vendor', 'vendors', 'id', 'name', '2015-01-01', '2015-01-01');
 
 INSERT INTO measures (id, name, expression, datatype, date_created, last_updated)
-values (1, 'Amount', 'sum(donations.amount)', 'double', '2015-01-01', '2015-01-01');
+values (1, 'Total Amount', 'sum(donations.amount)', 'double', '2015-01-01', '2015-01-01');
 
 INSERT INTO measures (id, name, expression, datatype, date_created, last_updated)
 values (2, 'Count', 'count(donations.id)', 'integer', '2015-01-01', '2015-01-01');
