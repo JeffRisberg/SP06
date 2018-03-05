@@ -71,7 +71,7 @@ public class ReportingController extends AbstractAdminController {
         ReportType reportType = null;
         try {
             reportTypeKey = (String) request.getParameter("reportType");
-            reportType = ReportType.valueOf(reportTypeKey);
+            reportType = null; // ReportType.valueOf(reportTypeKey);
             reportingSession.setReportType(reportType);
         } catch (Exception e) {
             e.printStackTrace();

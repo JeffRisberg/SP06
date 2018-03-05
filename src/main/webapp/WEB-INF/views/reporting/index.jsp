@@ -30,14 +30,14 @@
 <div class="row">
     <div class="col-md-2">
         <form:form id="analyticForm">
-            <h4>Dimension</h4>
-            <form:select path="dimension" id="dimensionOption">
-                <form:options items="${dimensionList}" itemValue="id" itemLabel="name"/>
-            </form:select>
-            <br/>
             <h4>Measure</h4>
             <form:select path="measure" id="measureOption">
                 <form:options items="${measureList}" itemValue="id" itemLabel="name"/>
+            </form:select>
+            <br/>
+            <h4>Dimension</h4>
+            <form:select path="dimension" id="dimensionOption">
+                <form:options items="${dimensionList}" itemValue="id" itemLabel="name"/>
             </form:select>
         </form:form>
     </div>
